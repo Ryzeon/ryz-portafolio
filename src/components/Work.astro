@@ -1,0 +1,225 @@
+---
+import SectionHeading from './SectionHeading.astro'
+import type { UIStrings } from '../i18n/types'
+import type { FeaturedProject, Project } from '../data/portfolio'
+
+interface Props {
+  ui: UIStrings
+  featured: FeaturedProject
+  projects: Project[]
+}
+
+const { ui, featured, projects } = Astro.props
+---
+
+<section id="work" class="pf-container pf-section">
+  <SectionHeading number="04" title={ui.workTitle} />
+
+  <a href={featured.link} target="_blank" rel="noopener" class="work__featured pf-press-lg">
+    <div class="work__featured-top">
+      <span class="work__featured-tag">★ {ui.featuredTag}</span>
+      <span class="work__arrow">↗</span>
+    </div>
+    <h3 class="work__featured-name">{featured.name}</h3>
+    <div class="work__featured-grid">
+      <p class="work__featured-blurb">{featured.blurb}</p>
+      <div class="work__metrics">
+        {
+          featured.metrics.map((metric) => (
+            <div class="work__metric">
+              <div class="work__metric-value">{metric.value}</div>
+              <div class="work__metric-label">{metric.label}</div>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+    <div class="work__tags">
+      {featured.stack.map((tech) => <span class="work__tag">{tech}</span>)}
+    </div>
+  </a>
+
+  <div class="work__grid">
+    {
+      projects.map((project) => (
+        <a
+          href={project.link}
+          target="_blank"
+          rel="noopener"
+          class="work__card pf-press-lg"
+          style={`border-top-color:${project.color}`}
+        >
+          <div class="work__card-top">
+            <h3 class="work__card-name">{project.name}</h3>
+            <span class="work__arrow">↗</span>
+          </div>
+          <p class="work__card-blurb">{project.blurb}</p>
+          <div class="work__card-tags">
+            {project.stack.map((tech) => <span class="work__tag">{tech}</span>)}
+          </div>
+        </a>
+      ))
+    }
+  </div>
+</section>
+
+<style>
+  .work__featured {
+    display: block;
+    border: 3px solid var(--pf-ink);
+    background: var(--pf-primary);
+    padding: 32px;
+    box-shadow: 7px 7px 0 var(--pf-ink);
+    margin-bottom: 18px;
+  }
+
+  .work__featured-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+
+  .work__featured-tag {
+    font-family: var(--pf-font-mono);
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    background: var(--pf-ink);
+    color: var(--pf-bg);
+    padding: 4px 10px;
+  }
+
+  .work__arrow {
+    font-family: var(--pf-font-display);
+    font-size: 18px;
+  }
+
+  .work__featured-name {
+    font-family: var(--pf-font-display);
+    font-size: clamp(36px, 6vw, 64px);
+    line-height: 0.92;
+    text-transform: uppercase;
+    letter-spacing: -0.03em;
+    margin: 14px 0 16px;
+  }
+
+  .work__featured-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 26px;
+  }
+
+  .work__featured-blurb {
+    font-size: 15px;
+    line-height: 1.6;
+    font-weight: 500;
+    max-width: 520px;
+  }
+
+  .work__metrics {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+
+  .work__metric {
+    background: var(--pf-bg);
+    border: 2px solid var(--pf-ink);
+    padding: 12px 14px;
+  }
+
+  .work__metric-value {
+    font-family: var(--pf-font-display);
+    font-size: 36px;
+    line-height: 1;
+    letter-spacing: -0.03em;
+  }
+
+  .work__metric-label {
+    font-family: var(--pf-font-mono);
+    font-size: 11px;
+    font-weight: 700;
+    margin-top: 4px;
+    line-height: 1.3;
+  }
+
+  .work__tags,
+  .work__card-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+
+  .work__tags {
+    margin-top: 20px;
+  }
+
+  .work__tag {
+    font-family: var(--pf-font-mono);
+    font-size: 11px;
+    font-weight: 700;
+    padding: 4px 9px;
+    background: var(--pf-bg);
+    border: 2px solid var(--pf-ink);
+  }
+
+  .work__grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 18px;
+  }
+
+  .work__card {
+    display: flex;
+    flex-direction: column;
+    border: 3px solid var(--pf-ink);
+    border-top: 9px solid var(--pf-ink);
+    background: var(--pf-paper);
+    padding: 24px;
+    box-shadow: 6px 6px 0 var(--pf-ink);
+    height: 100%;
+  }
+
+  .work__card-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+  }
+
+  .work__card-name {
+    font-family: var(--pf-font-display);
+    font-size: 20px;
+    text-transform: uppercase;
+    letter-spacing: -0.01em;
+  }
+
+  .work__card .work__arrow {
+    font-size: 16px;
+  }
+
+  .work__card-blurb {
+    font-size: 14px;
+    line-height: 1.6;
+    margin-bottom: 16px;
+    flex: 1;
+  }
+
+  .work__card .work__tag {
+    font-size: 10.5px;
+    padding: 3px 8px;
+    background: transparent;
+  }
+
+  @media (min-width: 620px) {
+    .work__featured-grid {
+      grid-template-columns: 1.4fr 1fr;
+    }
+
+    .work__grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+</style>

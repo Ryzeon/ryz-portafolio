@@ -6,6 +6,7 @@ import Marquee from '../components/Marquee.astro'
 import About from '../components/About.astro'
 import Stack from '../components/Stack.astro'
 import Experience from '../components/Experience.astro'
+import Work from '../components/Work.astro'
 import { getUI } from '../i18n'
 import { getPortfolio } from '../data/portfolio'
 
@@ -25,4 +26,5 @@ const data = getPortfolio(lang)
   <About ui={ui} stats={data.stats} />
   <Stack ui={ui} groups={data.stackGroups} />
   <Experience ui={ui} jobs={data.experience} education={data.education} />
+  <Work ui={ui} featured={data.featured} projects={data.projects} />
 </BaseLayout>
