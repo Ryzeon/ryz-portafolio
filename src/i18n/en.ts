@@ -42,7 +42,7 @@ export const en: UIStrings = {
   privateLabel: 'Private',
   privateModalTitle: 'Private repository',
   privateModalBody:
-    "This project's code is private due to client confidentiality. I'm happy to walk you through it in an interview or under NDA.",
+    "This project's code is private due to client confidentiality. I'm happy to talk through my role, the architecture and the technical decisions in an interview.",
   privateModalClose: 'Got it',
   contactLabel: 'Contact',
   contactTitle: 'Let’s build something epic',
