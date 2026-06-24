@@ -39,6 +39,11 @@ export const en: UIStrings = {
     'SDLC, software design & testing, advanced data structures & algorithms, and relational/NoSQL data modeling. Expected graduation 2026.',
   workTitle: 'Work',
   featuredTag: 'Flagship project',
+  privateLabel: 'Private',
+  privateModalTitle: 'Private repository',
+  privateModalBody:
+    "This project's code is private due to client confidentiality. I'm happy to walk you through it in an interview or under NDA.",
+  privateModalClose: 'Got it',
   contactLabel: 'Contact',
   contactTitle: 'Let’s build something epic',
   contactBody: 'Open to fullstack, backend and cloud roles — international remote or on-site.',

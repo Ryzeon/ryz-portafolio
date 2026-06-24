@@ -40,6 +40,10 @@ export interface UIStrings {
   eduBody: string
   workTitle: string
   featuredTag: string
+  privateLabel: string
+  privateModalTitle: string
+  privateModalBody: string
+  privateModalClose: string
   contactLabel: string
   contactTitle: string
   contactBody: string

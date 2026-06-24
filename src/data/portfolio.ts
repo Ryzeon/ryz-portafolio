@@ -52,9 +52,10 @@ export interface FeaturedProject {
 export interface Project {
   color: string
   name: string
-  link: string
   blurb: string
   stack: string[]
+  link?: string
+  private?: boolean
 }
 
 export interface Social {
@@ -216,6 +217,28 @@ export function getPortfolio(lang: Lang): Portfolio {
     },
     projects: [
       {
+        color: PALETTE[2],
+        name: 'UPC Community Platform',
+        private: true,
+        blurb: pick(
+          lang,
+          'Backend serverless para gestionar comunidades universitarias UPC: Quarkus + GraalVM Native sobre AWS Lambda (cold start mínimo), DynamoDB, Clean Architecture en monorepo e IaC con Terraform.',
+          'Serverless backend for UPC university communities: Quarkus + GraalVM Native on AWS Lambda (minimal cold start), DynamoDB, Clean Architecture monorepo and IaC with Terraform.',
+        ),
+        stack: ['Java 21', 'Quarkus', 'GraalVM', 'AWS Lambda', 'DynamoDB', 'Terraform'],
+      },
+      {
+        color: PALETTE[1],
+        name: 'Despertares · Intranet API',
+        private: true,
+        blurb: pick(
+          lang,
+          'API backend de una intranet escolar tipo LMS (notas, asistencia, tareas con entregas, pagos): Spring Boot 3 y Java 17, auth con AWS Cognito, archivos en S3, correos con SES y PostgreSQL.',
+          'Backend API for a school LMS-style intranet (grades, attendance, tasks with submissions, payments): Spring Boot 3 and Java 17, AWS Cognito auth, S3 files, SES emails and PostgreSQL.',
+        ),
+        stack: ['Java 17', 'Spring Boot 3', 'AWS Cognito', 'S3', 'SES', 'PostgreSQL'],
+      },
+      {
         color: PALETTE[0],
         name: 'SWARD',
         link: 'https://github.com/sward-UPC',
@@ -227,26 +250,26 @@ export function getPortfolio(lang: Lang): Portfolio {
         stack: ['Python', 'FastAPI', 'AWS CDK', 'Lambda', 'React', 'ML'],
       },
       {
-        color: PALETTE[2],
-        name: 'InnControl',
-        link: 'https://github.com/InnControlUPC',
+        color: PALETTE[3],
+        name: 'UPC Community Backoffice',
+        private: true,
         blurb: pick(
           lang,
-          'Gestión hotelera como microservicios Spring Cloud — Eureka, API Gateway y servicios de dominio (IAM, inventario, tareas).',
-          'Hotel management as Spring Cloud microservices — Eureka, API Gateway and domain services (IAM, inventory, tasks).',
+          'Panel de administración del ecosistema UPC: SPA en React 19 + TypeScript + Vite, con React Query, autorización por permisos (PBAC) y JWT con refresh rotativo en cookie httpOnly.',
+          'Admin panel for the UPC ecosystem: React 19 + TypeScript + Vite SPA with React Query, permission-based authorization (PBAC) and rotating-refresh JWT in an httpOnly cookie.',
         ),
-        stack: ['Java', 'Spring Cloud', 'Eureka', 'API Gateway', 'TypeScript'],
+        stack: ['React 19', 'TypeScript', 'Vite', 'React Query', 'PBAC'],
       },
       {
-        color: PALETTE[3],
-        name: 'RutaKids',
-        link: 'https://llanta.ryzeon.me',
+        color: PALETTE[2],
+        name: 'UPC Community Portal',
+        private: true,
         blurb: pick(
           lang,
-          'Tracking IoT de transporte escolar — firmware ESP32, gateway edge en Python y microservicios Java con app web.',
-          'IoT school-transport tracking — ESP32 firmware, a Python edge gateway and Java microservices with a web app.',
+          'Sitio público del ecosistema de comunidades UPC: Astro + React con SSR (adaptador Node standalone) y TailwindCSS.',
+          'Public site for the UPC communities ecosystem: Astro + React with SSR (Node standalone adapter) and TailwindCSS.',
         ),
-        stack: ['ESP32 / C++', 'Python', 'Java', 'IoT'],
+        stack: ['Astro', 'React', 'TailwindCSS', 'SSR'],
       },
       {
         color: PALETTE[4],
@@ -254,8 +277,8 @@ export function getPortfolio(lang: Lang): Portfolio {
         link: 'https://github.com/Ryzeon/discord-html-transcripts',
         blurb: pick(
           lang,
-          'Librería Java open-source para generar transcripciones HTML con JDA. Usada por la comunidad.',
-          'Open-source Java library for nicely formatted HTML transcripts with JDA. Used by the community.',
+          'Librería Java open-source (★19) para generar transcripciones HTML con JDA. Usada por la comunidad.',
+          'Open-source Java library (★19) for nicely formatted HTML transcripts with JDA. Used by the community.',
         ),
         stack: ['Java', 'JDA', 'Open Source'],
       },

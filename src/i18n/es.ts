@@ -39,6 +39,11 @@ export const es: UIStrings = {
     'SDLC, diseño y testing de software, estructuras de datos y algoritmos avanzados, y modelado de datos relacional/NoSQL. Graduación esperada 2026.',
   workTitle: 'Proyectos',
   featuredTag: 'Proyecto estrella',
+  privateLabel: 'Privado',
+  privateModalTitle: 'Repositorio privado',
+  privateModalBody:
+    'El código de este proyecto es privado por confidencialidad del cliente. Con gusto te doy un recorrido en una entrevista o bajo NDA.',
+  privateModalClose: 'Entendido',
   contactLabel: 'Contacto',
   contactTitle: 'Construyamos algo épico',
   contactBody:
