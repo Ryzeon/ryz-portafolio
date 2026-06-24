@@ -34,8 +34,12 @@ const cvUrl = lang === 'es' ? 'https://cv.ryzeon.me/es/' : 'https://cv.ryzeon.me
       </div>
 
       <div class="nav__lang">
-        <a href={esUrl} class:list={['nav__lang-btn', { 'is-active': lang === 'es' }]}>ES</a>
-        <a href={enUrl} class:list={['nav__lang-btn', { 'is-active': lang === 'en' }]}>EN</a>
+        <a href={esUrl} data-lang-link class:list={['nav__lang-btn', { 'is-active': lang === 'es' }]}
+          >ES</a
+        >
+        <a href={enUrl} data-lang-link class:list={['nav__lang-btn', { 'is-active': lang === 'en' }]}
+          >EN</a
+        >
       </div>
 
       <NavCvLink
@@ -129,3 +133,24 @@ const cvUrl = lang === 'es' ? 'https://cv.ryzeon.me/es/' : 'https://cv.ryzeon.me
     }
   }
 </style>
+
+<script>
+  // Keep the scroll position when switching language instead of jumping to top.
+  document.addEventListener('astro:after-swap', () => {
+    const y = sessionStorage.getItem('pf-scroll')
+    if (y !== null) {
+      window.scrollTo(0, Number.parseInt(y, 10))
+      sessionStorage.removeItem('pf-scroll')
+    }
+  })
+
+  function bindLangScroll() {
+    document.querySelectorAll('[data-lang-link]').forEach((link) => {
+      link.addEventListener('click', () => {
+        sessionStorage.setItem('pf-scroll', String(window.scrollY))
+      })
+    })
+  }
+
+  document.addEventListener('astro:page-load', bindLangScroll)
+</script>
