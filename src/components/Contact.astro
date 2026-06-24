@@ -87,7 +87,10 @@ const mailto = email?.href ?? 'mailto:contact@ryzeon.dev'
       }
     </div>
 
-    <div class="contact__footer">© 2026 Alex Avila Asto — Lima, Peru · Open to remote</div>
+    <div class="contact__footer">
+      <span>© 2026 Alex Avila Asto — Lima, Peru · Open to remote</span>
+      <span class="contact__hint">{ui.saveHint}</span>
+    </div>
   </div>
 </section>
 
@@ -265,6 +268,10 @@ const mailto = email?.href ?? 'mailto:contact@ryzeon.dev'
   }
 
   .contact__footer {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px 18px;
+    justify-content: space-between;
     font-family: var(--pf-font-mono);
     font-size: 11px;
     font-weight: 700;
@@ -272,6 +279,10 @@ const mailto = email?.href ?? 'mailto:contact@ryzeon.dev'
     margin-top: 40px;
     border-top: 2px solid var(--pf-ink);
     padding-top: 18px;
+  }
+
+  .contact__hint {
+    opacity: 0.7;
   }
 
   @media (min-width: 560px) {

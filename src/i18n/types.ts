@@ -44,4 +44,5 @@ export interface UIStrings {
   contactTitle: string
   contactBody: string
   contactCta: string
+  saveHint: string
 }
