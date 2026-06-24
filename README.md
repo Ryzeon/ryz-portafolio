@@ -52,7 +52,7 @@ Copia `.env.example` a `.env` y completa los valores:
 | Variable         | Descripción                              | Por defecto                         |
 | ---------------- | ---------------------------------------- | ----------------------------------- |
 | `RESEND_API_KEY` | API key de Resend (requerida)            | —                                   |
-| `CONTACT_TO`     | Correo que recibe los mensajes           | `contact@ryzeon.dev`                |
+| `CONTACT_TO`     | Correo que recibe los mensajes           | `aavilaasto@gmail.com`              |
 | `CONTACT_FROM`   | Remitente (dominio verificado en Resend) | `Portafolio <portfolio@ryzeon.dev>` |
 
 ## Estructura

@@ -26,7 +26,7 @@ export default defineConfig({
       CONTACT_TO: envField.string({
         context: 'server',
         access: 'public',
-        default: 'contact@ryzeon.dev',
+        default: 'aavilaasto@gmail.com',
       }),
       CONTACT_FROM: envField.string({
         context: 'server',
