@@ -1,0 +1,134 @@
+---
+interface Props {
+  href: string
+  label: string
+  previewUrl: string
+  variant: 'primary' | 'terminal'
+}
+
+const { href, label, previewUrl, variant } = Astro.props
+const host = new URL(previewUrl).host
+---
+
+<div class:list={['cvlink', `cvlink--${variant}`]}>
+  <a href={href} target="_blank" rel="noopener" class="cvlink__btn pf-press">
+    {variant === 'terminal' && <span class="cvlink__prompt">&gt;_</span>}
+    {label} ↗
+  </a>
+  <div class="cvlink__preview" aria-hidden="true">
+    <span class="cvlink__preview-url">{host}</span>
+    <div class="cvlink__preview-frame">
+      <iframe data-src={previewUrl} title={`${label} preview`} loading="lazy" tabindex="-1" scrolling="no"
+      ></iframe>
+    </div>
+  </div>
+</div>
+
+<style>
+  .cvlink {
+    position: relative;
+  }
+
+  .cvlink__btn {
+    font-family: var(--pf-font-mono);
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    padding: 8px 14px;
+    background: var(--pf-primary);
+    color: var(--pf-ink);
+    border: 2px solid var(--pf-ink);
+    box-shadow: 3px 3px 0 var(--pf-ink);
+    white-space: nowrap;
+  }
+
+  .cvlink--terminal .cvlink__btn {
+    background: var(--pf-ink);
+    color: var(--pf-bg);
+  }
+
+  .cvlink__prompt {
+    color: var(--pf-primary);
+  }
+
+  .cvlink__preview {
+    position: absolute;
+    top: calc(100% + 10px);
+    right: 0;
+    z-index: 80;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    padding: 8px;
+    background: var(--pf-bg);
+    border: 3px solid var(--pf-ink);
+    box-shadow: 6px 6px 0 var(--pf-ink);
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-4px);
+    transition: opacity 0.15s, transform 0.15s, visibility 0.15s;
+    pointer-events: none;
+  }
+
+  .cvlink__preview-url {
+    font-family: var(--pf-font-mono);
+    font-size: 10px;
+    font-weight: 700;
+    text-transform: uppercase;
+  }
+
+  .cvlink__preview-url::before {
+    content: '>_ ';
+    color: var(--pf-primary);
+  }
+
+  .cvlink__preview-frame {
+    width: 360px;
+    height: 225px;
+    overflow: hidden;
+    border: 2px solid var(--pf-ink);
+    background: var(--pf-paper);
+  }
+
+  .cvlink__preview-frame iframe {
+    width: 1200px;
+    height: 750px;
+    border: 0;
+    transform: scale(0.3);
+    transform-origin: top left;
+    pointer-events: none;
+  }
+
+  @media (hover: hover) {
+    .cvlink:hover .cvlink__preview,
+    .cvlink:focus-within .cvlink__preview {
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(0);
+    }
+  }
+
+  /* Keep the terminal CV out of the way on narrow screens. */
+  .cvlink--terminal {
+    display: none;
+  }
+
+  @media (min-width: 560px) {
+    .cvlink--terminal {
+      display: block;
+    }
+  }
+</style>
+
+<script>
+  document.querySelectorAll<HTMLElement>('.cvlink').forEach((cvlink) => {
+    const iframe = cvlink.querySelector<HTMLIFrameElement>('.cvlink__preview-frame iframe')
+    if (!iframe?.dataset.src) return
+
+    const load = () => {
+      if (!iframe.src) iframe.src = iframe.dataset.src as string
+    }
+    cvlink.addEventListener('pointerenter', load, { once: true })
+    cvlink.addEventListener('focusin', load, { once: true })
+  })
+</script>

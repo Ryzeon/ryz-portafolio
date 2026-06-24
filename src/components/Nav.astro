@@ -1,5 +1,6 @@
 ---
 import { getRelativeLocaleUrl } from 'astro:i18n'
+import NavCvLink from './NavCvLink.astro'
 import type { Lang, UIStrings } from '../i18n/types'
 
 interface Props {
@@ -35,31 +36,19 @@ const enUrl = getRelativeLocaleUrl('en', '')
         <a href={enUrl} class:list={['nav__lang-btn', { 'is-active': lang === 'en' }]}>EN</a>
       </div>
 
-      <div class="nav__shell">
-        <a
-          href="https://shell.ryzeon.dev/"
-          target="_blank"
-          rel="noopener"
-          class="nav__cv nav__cv--terminal pf-press"
-        >
-          <span class="nav__prompt">&gt;_</span> {ui.cvShellBtn} ↗
-        </a>
-        <div class="nav__preview" aria-hidden="true">
-          <span class="nav__preview-url">shell.ryzeon.dev</span>
-          <div class="nav__preview-frame">
-            <iframe
-              data-src="https://shell.ryzeon.dev/"
-              title="Shell CV preview"
-              loading="lazy"
-              tabindex="-1"
-              scrolling="no"></iframe>
-          </div>
-        </div>
-      </div>
+      <NavCvLink
+        href="https://shell.ryzeon.dev/"
+        previewUrl="https://shell.ryzeon.dev/"
+        label={ui.cvShellBtn}
+        variant="terminal"
+      />
 
-      <a href="https://cv.ryzeon.me" target="_blank" rel="noopener" class="nav__cv pf-press">
-        {ui.cvBtn} ↗
-      </a>
+      <NavCvLink
+        href="https://cv.ryzeon.me"
+        previewUrl="https://cv.ryzeon.me"
+        label={ui.cvBtn}
+        variant="primary"
+      />
     </div>
   </div>
 </nav>
@@ -137,115 +126,9 @@ const enUrl = getRelativeLocaleUrl('en', '')
     color: var(--pf-bg);
   }
 
-  .nav__cv {
-    font-family: var(--pf-font-mono);
-    font-size: 12px;
-    font-weight: 700;
-    text-transform: uppercase;
-    padding: 8px 14px;
-    background: var(--pf-primary);
-    color: var(--pf-ink);
-    border: 2px solid var(--pf-ink);
-    box-shadow: 3px 3px 0 var(--pf-ink);
-  }
-
-  .nav__cv--terminal {
-    background: var(--pf-ink);
-    color: var(--pf-bg);
-  }
-
-  .nav__prompt {
-    color: var(--pf-primary);
-  }
-
-  .nav__shell {
-    position: relative;
-  }
-
-  .nav__preview {
-    position: absolute;
-    top: calc(100% + 10px);
-    right: 0;
-    z-index: 80;
-    display: flex;
-    flex-direction: column;
-    gap: 6px;
-    padding: 8px;
-    background: var(--pf-bg);
-    border: 3px solid var(--pf-ink);
-    box-shadow: 6px 6px 0 var(--pf-ink);
-    opacity: 0;
-    visibility: hidden;
-    transform: translateY(-4px);
-    transition: opacity 0.15s, transform 0.15s, visibility 0.15s;
-    pointer-events: none;
-  }
-
-  .nav__preview-url {
-    font-family: var(--pf-font-mono);
-    font-size: 10px;
-    font-weight: 700;
-    text-transform: uppercase;
-  }
-
-  .nav__preview-url::before {
-    content: '>_ ';
-    color: var(--pf-primary);
-  }
-
-  .nav__preview-frame {
-    width: 360px;
-    height: 225px;
-    overflow: hidden;
-    border: 2px solid var(--pf-ink);
-    background: var(--pf-paper);
-  }
-
-  .nav__preview-frame iframe {
-    width: 1200px;
-    height: 750px;
-    border: 0;
-    transform: scale(0.3);
-    transform-origin: top left;
-    pointer-events: none;
-  }
-
-  @media (hover: hover) {
-    .nav__shell:hover .nav__preview,
-    .nav__shell:focus-within .nav__preview {
-      opacity: 1;
-      visibility: visible;
-      transform: translateY(0);
-    }
-  }
-
-  /* Keep the terminal CV out of the way on narrow screens. */
-  .nav__cv--terminal {
-    display: none;
-  }
-
-  @media (min-width: 560px) {
-    .nav__cv--terminal {
-      display: inline-block;
-    }
-  }
-
   @media (min-width: 940px) {
     .nav__links {
       display: flex;
     }
   }
 </style>
-
-<script>
-  const shell = document.querySelector('.nav__shell')
-  const iframe = shell?.querySelector<HTMLIFrameElement>('.nav__preview-frame iframe')
-
-  if (shell && iframe?.dataset.src) {
-    const load = () => {
-      if (!iframe.src) iframe.src = iframe.dataset.src as string
-    }
-    shell.addEventListener('pointerenter', load, { once: true })
-    shell.addEventListener('focusin', load, { once: true })
-  }
-</script>
