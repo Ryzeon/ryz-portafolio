@@ -1,0 +1,46 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro'
+import Nav from './Nav.astro'
+import Hero from './Hero.astro'
+import Marquee from './Marquee.astro'
+import About from './About.astro'
+import Stack from './Stack.astro'
+import Experience from './Experience.astro'
+import Work from './Work.astro'
+import Contact from './Contact.astro'
+import PaletteSwitcher from './PaletteSwitcher.astro'
+import { getUI } from '../i18n'
+import { getPortfolio } from '../data/portfolio'
+import type { Lang } from '../i18n/types'
+
+interface Props {
+  lang: Lang
+}
+
+const { lang } = Astro.props
+const ui = getUI(lang)
+const data = getPortfolio(lang)
+
+const meta = {
+  es: {
+    title: 'Alex Avila — Software Engineer',
+    description: 'Portafolio de Alex Avila, Software Engineer enfocado en backend, cloud y DevOps.',
+  },
+  en: {
+    title: 'Alex Avila — Software Engineer',
+    description: 'Portfolio of Alex Avila, a Software Engineer focused on backend, cloud and DevOps.',
+  },
+}[lang]
+---
+
+<BaseLayout lang={lang} title={meta.title} description={meta.description}>
+  <Nav lang={lang} ui={ui} />
+  <Hero ui={ui} chips={data.heroChips} />
+  <Marquee text={data.marquee} />
+  <About ui={ui} stats={data.stats} />
+  <Stack ui={ui} groups={data.stackGroups} />
+  <Experience ui={ui} jobs={data.experience} education={data.education} />
+  <Work ui={ui} featured={data.featured} projects={data.projects} />
+  <Contact ui={ui} socials={data.socials} />
+  <PaletteSwitcher />
+</BaseLayout>

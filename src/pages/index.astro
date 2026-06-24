@@ -1,34 +1,5 @@
 ---
-import BaseLayout from '../layouts/BaseLayout.astro'
-import Nav from '../components/Nav.astro'
-import Hero from '../components/Hero.astro'
-import Marquee from '../components/Marquee.astro'
-import About from '../components/About.astro'
-import Stack from '../components/Stack.astro'
-import Experience from '../components/Experience.astro'
-import Work from '../components/Work.astro'
-import Contact from '../components/Contact.astro'
-import PaletteSwitcher from '../components/PaletteSwitcher.astro'
-import { getUI } from '../i18n'
-import { getPortfolio } from '../data/portfolio'
-
-const lang = 'es'
-const ui = getUI(lang)
-const data = getPortfolio(lang)
+import Portfolio from '../components/Portfolio.astro'
 ---
 
-<BaseLayout
-  lang={lang}
-  title="Alex Avila — Software Engineer"
-  description="Portafolio de Alex Avila, Software Engineer enfocado en backend, cloud y DevOps."
->
-  <Nav lang={lang} ui={ui} />
-  <Hero ui={ui} chips={data.heroChips} />
-  <Marquee text={data.marquee} />
-  <About ui={ui} stats={data.stats} />
-  <Stack ui={ui} groups={data.stackGroups} />
-  <Experience ui={ui} jobs={data.experience} education={data.education} />
-  <Work ui={ui} featured={data.featured} projects={data.projects} />
-  <Contact ui={ui} socials={data.socials} />
-  <PaletteSwitcher />
-</BaseLayout>
+<Portfolio lang="es" />
