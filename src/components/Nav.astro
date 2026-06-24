@@ -20,6 +20,8 @@ const links = [
 
 const esUrl = getRelativeLocaleUrl('es', '')
 const enUrl = getRelativeLocaleUrl('en', '')
+
+const cvUrl = lang === 'es' ? 'https://cv.ryzeon.me/es/' : 'https://cv.ryzeon.me'
 ---
 
 <nav class="nav">
@@ -43,12 +45,7 @@ const enUrl = getRelativeLocaleUrl('en', '')
         variant="terminal"
       />
 
-      <NavCvLink
-        href="https://cv.ryzeon.me"
-        previewUrl="https://cv.ryzeon.me"
-        label={ui.cvBtn}
-        variant="primary"
-      />
+      <NavCvLink href={cvUrl} previewUrl={cvUrl} label={ui.cvBtn} variant="primary" />
     </div>
   </div>
 </nav>
