@@ -1,9 +1,18 @@
 import { defineConfig, envField } from 'astro/config'
 import vercel from '@astrojs/vercel'
+import sitemap from '@astrojs/sitemap'
 
 export default defineConfig({
   site: 'https://ryzeon.me',
   adapter: vercel(),
+  integrations: [
+    sitemap({
+      i18n: {
+        defaultLocale: 'es',
+        locales: { es: 'es-PE', en: 'en-US' },
+      },
+    }),
+  ],
   i18n: {
     locales: ['es', 'en'],
     defaultLocale: 'es',

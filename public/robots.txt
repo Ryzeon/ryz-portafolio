@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://ryzeon.me/sitemap-index.xml
