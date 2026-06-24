@@ -1,10 +1,13 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro'
 import Nav from '../components/Nav.astro'
+import Hero from '../components/Hero.astro'
 import { getUI } from '../i18n'
+import { getPortfolio } from '../data/portfolio'
 
 const lang = 'es'
 const ui = getUI(lang)
+const data = getPortfolio(lang)
 ---
 
 <BaseLayout
@@ -13,4 +16,5 @@ const ui = getUI(lang)
   description="Portafolio de Alex Avila, Software Engineer enfocado en backend, cloud y DevOps."
 >
   <Nav lang={lang} ui={ui} />
+  <Hero ui={ui} chips={data.heroChips} />
 </BaseLayout>

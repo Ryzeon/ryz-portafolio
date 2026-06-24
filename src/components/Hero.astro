@@ -1,0 +1,194 @@
+---
+import type { UIStrings } from '../i18n/types'
+import type { HeroChip } from '../data/portfolio'
+
+interface Props {
+  ui: UIStrings
+  chips: HeroChip[]
+}
+
+const { ui, chips } = Astro.props
+---
+
+<header class="pf-container hero">
+  <div class="hero__grid">
+    <div>
+      <span class="hero__eyebrow">{ui.eyebrow}</span>
+      <h1 class="hero__title">
+        Alex<br />Avila<br /><span class="hero__highlight">Asto</span>
+      </h1>
+      <p class="hero__tagline">{ui.heroTagline}</p>
+
+      <div class="hero__chips">
+        {
+          chips.map((chip) => (
+            <span class="hero__chip" style={`background:${chip.color}`}>
+              {chip.label}
+            </span>
+          ))
+        }
+      </div>
+
+      <div class="hero__ctas">
+        <a href="#work" class="hero__cta hero__cta--primary pf-press">{ui.ctaWork} →</a>
+        <a href="#contact" class="hero__cta hero__cta--ghost pf-press">{ui.ctaContact}</a>
+      </div>
+    </div>
+
+    <div class="hero__media">
+      <div class="hero__accent"></div>
+      <div class="hero__frame">
+        <div class="hero__photo">ALEX AVILA</div>
+      </div>
+      <div class="hero__badge">★ {ui.openBadge}</div>
+    </div>
+  </div>
+</header>
+
+<style>
+  .hero {
+    padding-block: 56px 50px;
+  }
+
+  .hero__grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 44px;
+    align-items: center;
+  }
+
+  .hero__eyebrow {
+    display: inline-block;
+    font-family: var(--pf-font-mono);
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    background: var(--pf-ink);
+    color: var(--pf-bg);
+    padding: 6px 12px;
+    margin-bottom: 22px;
+  }
+
+  .hero__title {
+    font-family: var(--pf-font-display);
+    font-size: clamp(46px, 8vw, 104px);
+    line-height: 0.9;
+    letter-spacing: -0.03em;
+    text-transform: uppercase;
+  }
+
+  .hero__highlight {
+    background: var(--pf-primary);
+    padding: 0 0.12em;
+    -webkit-box-decoration-break: clone;
+    box-decoration-break: clone;
+  }
+
+  .hero__tagline {
+    font-weight: 600;
+    font-size: clamp(17px, 2.2vw, 23px);
+    line-height: 1.35;
+    margin-top: 26px;
+    max-width: 540px;
+  }
+
+  .hero__chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 26px;
+  }
+
+  .hero__chip {
+    font-family: var(--pf-font-mono);
+    font-size: 12px;
+    font-weight: 700;
+    padding: 7px 12px;
+    border: 2px solid var(--pf-ink);
+  }
+
+  .hero__ctas {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: 32px;
+  }
+
+  .hero__cta {
+    font-family: var(--pf-font-mono);
+    font-size: 13px;
+    font-weight: 700;
+    text-transform: uppercase;
+    padding: 14px 24px;
+    border: 2px solid var(--pf-ink);
+    box-shadow: 4px 4px 0 var(--pf-ink);
+  }
+
+  .hero__cta--primary {
+    background: var(--pf-primary);
+    color: var(--pf-ink);
+  }
+
+  .hero__cta--ghost {
+    background: var(--pf-bg);
+    color: var(--pf-ink);
+  }
+
+  .hero__media {
+    position: relative;
+    display: none;
+  }
+
+  .hero__accent {
+    position: absolute;
+    inset: 0;
+    background: var(--pf-primary);
+    transform: rotate(-3deg);
+  }
+
+  .hero__frame {
+    position: relative;
+    border: 3px solid var(--pf-ink);
+    aspect-ratio: 4 / 5;
+    overflow: hidden;
+    background: var(--pf-paper);
+    box-shadow: 6px 6px 0 var(--pf-ink);
+  }
+
+  .hero__photo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    font-family: var(--pf-font-mono);
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: color-mix(in srgb, var(--pf-ink) 35%, transparent);
+  }
+
+  .hero__badge {
+    position: absolute;
+    bottom: -14px;
+    left: -14px;
+    background: var(--pf-ink);
+    color: var(--pf-bg);
+    font-family: var(--pf-font-mono);
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    padding: 7px 12px;
+    transform: rotate(-4deg);
+  }
+
+  @media (min-width: 780px) {
+    .hero__grid {
+      grid-template-columns: 1fr 320px;
+    }
+
+    .hero__media {
+      display: block;
+    }
+  }
+</style>
