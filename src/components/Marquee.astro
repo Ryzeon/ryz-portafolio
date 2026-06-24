@@ -1,0 +1,45 @@
+---
+interface Props {
+  text: string
+}
+
+const { text } = Astro.props
+---
+
+<div class="marquee">
+  <div class="marquee__track">
+    <span>{text}</span>
+    <span class="marquee__star"> &nbsp;★&nbsp; </span>
+    <span>{text}</span>
+    <span class="marquee__star"> &nbsp;★&nbsp; </span>
+  </div>
+</div>
+
+<style>
+  .marquee {
+    background: var(--pf-ink);
+    color: var(--pf-bg);
+    border-block: 3px solid var(--pf-ink);
+    overflow: hidden;
+    white-space: nowrap;
+    padding-block: 11px;
+  }
+
+  .marquee__track {
+    display: inline-block;
+    animation: pf-marquee 26s linear infinite;
+    font-family: var(--pf-font-display);
+    font-size: 20px;
+    text-transform: uppercase;
+  }
+
+  .marquee__star {
+    color: var(--pf-primary);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .marquee__track {
+      animation: none;
+    }
+  }
+</style>
