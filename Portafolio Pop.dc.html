@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Space+Grotesk:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{-webkit-font-smoothing:antialiased}
+  a{text-decoration:none;color:inherit}
+  ::selection{background:#111;color:#fff}
+  @keyframes pf-marq{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+</style>
+</helmet>
+<div style="font-family:'Space Grotesk',sans-serif;background:{{ theme.bg }};color:{{ theme.ink }};min-height:100vh;overflow-x:hidden">
+
+  <!-- NAV -->
+  <nav style="position:sticky;top:0;z-index:60;background:{{ theme.bg }};border-bottom:3px solid {{ theme.ink }}">
+    <div style="max-width:1200px;margin:0 auto;padding:14px 26px;display:flex;align-items:center;justify-content:space-between;gap:14px">
+      <a href="#top" style="font-family:'Archivo Black',sans-serif;font-size:18px;letter-spacing:-.01em">ALEX<span style="color:{{ theme.primary }}">.</span>AVILA</a>
+      <div style="display:flex;align-items:center;gap:10px">
+        <div style="display:none;gap:4px" class="pf-nav">
+          <sc-for list="{{ navLinks }}" as="l" hint-placeholder-count="4">
+            <a href="{{ l.href }}" style="font-family:'Space Mono',monospace;font-size:12px;font-weight:700;text-transform:uppercase;padding:7px 10px;transition:background .15s" onMouseEnter="{{ l.onEnter }}" onMouseLeave="{{ l.onLeave }}">{{ l.label }}</a>
+          </sc-for>
+        </div>
+        <div style="display:flex;border:2px solid {{ theme.ink }}">
+          <button onClick="{{ setES }}" style="font-family:'Space Mono',monospace;font-size:12px;font-weight:700;padding:6px 10px;border:none;cursor:pointer;background:{{ esBg }};color:{{ esFg }}">ES</button>
+          <button onClick="{{ setEN }}" style="font-family:'Space Mono',monospace;font-size:12px;font-weight:700;padding:6px 10px;border:none;border-left:2px solid {{ theme.ink }};cursor:pointer;background:{{ enBg }};color:{{ enFg }}">EN</button>
+        </div>
+        <a href="https://cv.ryzeon.me" target="_blank" rel="noopener" style="font-family:'Space Mono',monospace;font-size:12px;font-weight:700;text-transform:uppercase;padding:8px 14px;background:{{ theme.primary }};color:{{ theme.ink }};border:2px solid {{ theme.ink }};box-shadow:3px 3px 0 {{ theme.ink }};transition:transform .12s,box-shadow .12s" onMouseEnter="{{ pressIn }}" onMouseLeave="{{ pressOut }}">{{ t.cvBtn }} ↗</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <header id="top" style="max-width:1200px;margin:0 auto;padding:56px 26px 50px">
+    <div style="display:grid;grid-template-columns:1fr 320px;gap:44px;align-items:center" class="pf-herogrid">
+      <div>
+        <div style="display:inline-block;font-family:'Space Mono',monospace;font-size:12px;font-weight:700;text-transform:uppercase;background:{{ theme.ink }};color:{{ theme.bg }};padding:6px 12px;margin-bottom:22px">{{ t.eyebrow }}</div>
+        <h1 style="font-family:'Archivo Black',sans-serif;font-size:clamp(46px,8vw,104px);line-height:.9;letter-spacing:-.03em;text-transform:uppercase">Alex<br>Avila<br><span style="background:{{ theme.primary }};padding:0 .12em;box-decoration-break:clone;-webkit-box-decoration-break:clone">Asto</span></h1>
+        <p style="font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:clamp(17px,2.2vw,23px);line-height:1.35;margin-top:26px;max-width:540px">{{ t.heroTagline }}</p>
+        <div style="display:flex;flex-wrap:wrap;gap:10px;margin-top:26px">
+          <sc-for list="{{ heroChips }}" as="c" hint-placeholder-count="6">
+            <span style="font-family:'Space Mono',monospace;font-size:12px;font-weight:700;padding:7px 12px;border:2px solid {{ theme.ink }};background:{{ c.bg }}">{{ c.t }}</span>
+          </sc-for>
+        </div>
+        <div style="display:flex;flex-wrap:wrap;gap:12px;margin-top:32px">
+          <a href="#work" style="font-family:'Space Mono',monospace;font-size:13px;font-weight:700;text-transform:uppercase;padding:14px 24px;background:{{ theme.primary }};color:{{ theme.ink }};border:2px solid {{ theme.ink }};box-shadow:4px 4px 0 {{ theme.ink }};transition:transform .12s,box-shadow .12s" onMouseEnter="{{ pressIn }}" onMouseLeave="{{ pressOut }}">{{ t.ctaWork }} →</a>
+          <a href="#contact" style="font-family:'Space Mono',monospace;font-size:13px;font-weight:700;text-transform:uppercase;padding:14px 24px;background:{{ theme.bg }};color:{{ theme.ink }};border:2px solid {{ theme.ink }};box-shadow:4px 4px 0 {{ theme.ink }};transition:transform .12s,box-shadow .12s" onMouseEnter="{{ pressIn }}" onMouseLeave="{{ pressOut }}">{{ t.ctaContact }}</a>
+        </div>
+      </div>
+      <div style="position:relative" class="pf-heroimg">
+        <div style="position:absolute;inset:0;background:{{ theme.primary }};transform:rotate(-3deg)"></div>
+        <div style="position:relative;border:3px solid {{ theme.ink }};aspect-ratio:4/5;overflow:hidden;background:{{ theme.paper }};box-shadow:6px 6px 0 {{ theme.ink }}">
+          <x-import component-from-global-scope="image-slot" from="./image-slot.js" id="alex-photo-pop" shape="rect" fit="cover" placeholder="DROP PHOTO" hint-size="100%,100%" style="width:100%;height:100%;display:block"></x-import>
+        </div>
+        <div style="position:absolute;bottom:-14px;left:-14px;background:{{ theme.ink }};color:{{ theme.bg }};font-family:'Space Mono',monospace;font-size:11px;font-weight:700;text-transform:uppercase;padding:7px 12px;transform:rotate(-4deg)">★ {{ t.openBadge }}</div>
+      </div>
+    </div>
+  </header>
+
+  <!-- MARQUEE -->
+  <div style="background:{{ theme.ink }};color:{{ theme.bg }};border-top:3px solid {{ theme.ink }};border-bottom:3px solid {{ theme.ink }};overflow:hidden;white-space:nowrap;padding:11px 0">
+    <div style="display:inline-block;animation:pf-marq 26s linear infinite;font-family:'Archivo Black',sans-serif;font-size:20px;text-transform:uppercase">
+      <span>{{ marquee }}</span><span style="color:{{ theme.primary }}"> &nbsp;★&nbsp; </span><span>{{ marquee }}</span><span style="color:{{ theme.primary }}"> &nbsp;★&nbsp; </span>
+    </div>
+  </div>
+
+  <!-- ABOUT -->
+  <section id="about" style="max-width:1200px;margin:0 auto;padding:60px 26px">
+    <div style="display:flex;align-items:center;gap:14px;margin-bottom:28px">
+      <span style="font-family:'Archivo Black',sans-serif;font-size:26px;color:{{ theme.primary }};-webkit-text-stroke:1.5px {{ theme.ink }}">01</span>
+      <h2 style="font-family:'Archivo Black',sans-serif;font-size:clamp(24px,4vw,40px);text-transform:uppercase;letter-spacing:-.02em">{{ t.aboutLabel }}</h2>
+    </div>
+    <p style="font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:clamp(22px,3vw,34px);line-height:1.25;letter-spacing:-.01em;margin-bottom:22px;max-width:900px">{{ t.aboutLead }}</p>
+    <p style="font-size:16px;line-height:1.7;max-width:700px">{{ t.aboutBody }}</p>
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:36px" class="pf-stats">
+      <sc-for list="{{ stats }}" as="s" hint-placeholder-count="3">
+        <div style="border:3px solid {{ theme.ink }};background:{{ s.bg }};padding:22px;box-shadow:5px 5px 0 {{ theme.ink }}">
+          <div style="font-family:'Archivo Black',sans-serif;font-size:48px;line-height:1;letter-spacing:-.03em">{{ s.n }}</div>
+          <div style="font-family:'Space Mono',monospace;font-size:12px;font-weight:700;text-transform:uppercase;margin-top:8px">{{ s.l }}</div>
+        </div>
+      </sc-for>
+    </div>
+  </section>
+
+  <!-- STACK -->
+  <section id="stack" style="max-width:1200px;margin:0 auto;padding:60px 26px">
+    <div style="display:flex;align-items:center;gap:14px;margin-bottom:28px">
+      <span style="font-family:'Archivo Black',sans-serif;font-size:26px;color:{{ theme.primary }};-webkit-text-stroke:1.5px {{ theme.ink }}">02</span>
+      <h2 style="font-family:'Archivo Black',sans-serif;font-size:clamp(24px,4vw,40px);text-transform:uppercase;letter-spacing:-.02em">{{ t.stackTitle }}</h2>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:16px" class="pf-stackgrid">
+      <sc-for list="{{ stackGroups }}" as="g" hint-placeholder-count="6">
+        <div style="border:3px solid {{ theme.ink }};background:{{ theme.paper }};padding:20px;box-shadow:5px 5px 0 {{ theme.ink }}">
+          <div style="display:inline-block;font-family:'Space Mono',monospace;font-size:12px;font-weight:700;text-transform:uppercase;background:{{ g.color }};padding:4px 10px;border:2px solid {{ theme.ink }};margin-bottom:14px">{{ g.label }}</div>
+          <div style="display:flex;flex-wrap:wrap;gap:7px">
+            <sc-for list="{{ g.items }}" as="it" hint-placeholder-count="5">
+              <span style="font-size:13px;font-weight:600;padding:4px 10px;border:2px solid {{ theme.ink }}">{{ it }}</span>
+            </sc-for>
+          </div>
+        </div>
+      </sc-for>
+    </div>
+  </section>
+
+  <!-- EXPERIENCE -->
+  <section id="experience" style="max-width:1200px;margin:0 auto;padding:60px 26px">
+    <div style="display:flex;align-items:center;gap:14px;margin-bottom:30px">
+      <span style="font-family:'Archivo Black',sans-serif;font-size:26px;color:{{ theme.primary }};-webkit-text-stroke:1.5px {{ theme.ink }}">03</span>
+      <h2 style="font-family:'Archivo Black',sans-serif;font-size:clamp(24px,4vw,40px);text-transform:uppercase;letter-spacing:-.02em">{{ t.expTitle }}</h2>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:18px">
+      <sc-for list="{{ experience }}" as="job" hint-placeholder-count="3">
+        <div style="border:3px solid {{ theme.ink }};background:{{ theme.paper }};padding:26px;box-shadow:5px 5px 0 {{ theme.ink }};border-left:10px solid {{ job.color }}">
+          <div style="display:flex;align-items:baseline;justify-content:space-between;gap:14px;flex-wrap:wrap;margin-bottom:12px">
+            <h3 style="font-family:'Archivo Black',sans-serif;font-size:clamp(18px,2.6vw,26px);text-transform:uppercase;letter-spacing:-.01em">{{ job.role }} — {{ job.company }}</h3>
+            <span style="font-family:'Space Mono',monospace;font-size:12px;font-weight:700;text-transform:uppercase">{{ job.period }} · {{ job.location }}</span>
+          </div>
+          <ul style="list-style:none;display:flex;flex-direction:column;gap:8px">
+            <sc-for list="{{ job.bullets }}" as="b" hint-placeholder-count="3">
+              <li style="font-size:14.5px;line-height:1.6;padding-left:22px;position:relative"><span style="position:absolute;left:0;font-family:'Archivo Black',sans-serif;color:{{ job.color }}">→</span>{{ b }}</li>
+            </sc-for>
+          </ul>
+          <div style="display:flex;flex-wrap:wrap;gap:6px;margin-top:14px">
+            <sc-for list="{{ job.tags }}" as="tg" hint-placeholder-count="4">
+              <span style="font-family:'Space Mono',monospace;font-size:11px;font-weight:700;padding:3px 9px;border:2px solid {{ theme.ink }}">{{ tg }}</span>
+            </sc-for>
+          </div>
+        </div>
+      </sc-for>
+      <div style="border:3px solid {{ theme.ink }};background:{{ theme.paper }};padding:26px;box-shadow:5px 5px 0 {{ theme.ink }};border-left:10px solid {{ theme.primary }}">
+        <div style="display:flex;align-items:baseline;justify-content:space-between;gap:14px;flex-wrap:wrap;margin-bottom:8px">
+          <h3 style="font-family:'Archivo Black',sans-serif;font-size:clamp(18px,2.6vw,26px);text-transform:uppercase;letter-spacing:-.01em">{{ t.eduDegree }} — UPC</h3>
+          <span style="font-family:'Space Mono',monospace;font-size:12px;font-weight:700;text-transform:uppercase">2022 — 2026 · Lima, PE</span>
+        </div>
+        <p style="font-size:14.5px;line-height:1.6;max-width:720px">{{ t.eduBody }}</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- WORK -->
+  <section id="work" style="max-width:1200px;margin:0 auto;padding:60px 26px">
+    <div style="display:flex;align-items:center;gap:14px;margin-bottom:30px">
+      <span style="font-family:'Archivo Black',sans-serif;font-size:26px;color:{{ theme.primary }};-webkit-text-stroke:1.5px {{ theme.ink }}">04</span>
+      <h2 style="font-family:'Archivo Black',sans-serif;font-size:clamp(24px,4vw,40px);text-transform:uppercase;letter-spacing:-.02em">{{ t.workTitle }}</h2>
+    </div>
+    <!-- featured -->
+    <a href="{{ featured.link }}" target="_blank" rel="noopener" style="display:block;border:3px solid {{ theme.ink }};background:{{ theme.primary }};padding:32px;box-shadow:7px 7px 0 {{ theme.ink }};margin-bottom:18px;transition:transform .12s,box-shadow .12s" onMouseEnter="{{ pressInBig }}" onMouseLeave="{{ pressOutBig }}">
+      <div style="display:flex;justify-content:space-between;align-items:baseline;gap:12px;flex-wrap:wrap">
+        <span style="font-family:'Space Mono',monospace;font-size:12px;font-weight:700;text-transform:uppercase;background:{{ theme.ink }};color:{{ theme.bg }};padding:4px 10px">★ {{ t.featuredTag }}</span>
+        <span style="font-family:'Archivo Black',sans-serif;font-size:18px">↗</span>
+      </div>
+      <h3 style="font-family:'Archivo Black',sans-serif;font-size:clamp(36px,6vw,64px);line-height:.92;text-transform:uppercase;letter-spacing:-.03em;margin:14px 0 16px">{{ featured.name }}</h3>
+      <div style="display:grid;grid-template-columns:1.4fr 1fr;gap:26px" class="pf-featgrid">
+        <p style="font-size:15px;line-height:1.6;font-weight:500;max-width:520px">{{ featured.blurb }}</p>
+        <div style="display:flex;flex-direction:column;gap:14px">
+          <sc-for list="{{ featured.metrics }}" as="mt" hint-placeholder-count="2">
+            <div style="background:{{ theme.bg }};border:2px solid {{ theme.ink }};padding:12px 14px">
+              <div style="font-family:'Archivo Black',sans-serif;font-size:36px;line-height:1;letter-spacing:-.03em">{{ mt.n }}</div>
+              <div style="font-family:'Space Mono',monospace;font-size:11px;font-weight:700;margin-top:4px;line-height:1.3">{{ mt.l }}</div>
+            </div>
+          </sc-for>
+        </div>
+      </div>
+      <div style="display:flex;flex-wrap:wrap;gap:6px;margin-top:20px">
+        <sc-for list="{{ featured.stack }}" as="s" hint-placeholder-count="6">
+          <span style="font-family:'Space Mono',monospace;font-size:11px;font-weight:700;padding:4px 9px;background:{{ theme.bg }};border:2px solid {{ theme.ink }}">{{ s }}</span>
+        </sc-for>
+      </div>
+    </a>
+    <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:18px" class="pf-projgrid">
+      <sc-for list="{{ projects }}" as="p" hint-placeholder-count="4">
+        <a href="{{ p.link }}" target="_blank" rel="noopener" style="display:flex;flex-direction:column;border:3px solid {{ theme.ink }};background:{{ theme.paper }};padding:24px;box-shadow:6px 6px 0 {{ theme.ink }};height:100%;transition:transform .12s,box-shadow .12s;border-top:9px solid {{ p.color }}" onMouseEnter="{{ pressInBig }}" onMouseLeave="{{ pressOutBig }}">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px">
+            <h3 style="font-family:'Archivo Black',sans-serif;font-size:20px;text-transform:uppercase;letter-spacing:-.01em">{{ p.name }}</h3>
+            <span style="font-family:'Archivo Black',sans-serif;font-size:16px">↗</span>
+          </div>
+          <p style="font-size:14px;line-height:1.6;margin-bottom:16px;flex:1">{{ p.blurb }}</p>
+          <div style="display:flex;flex-wrap:wrap;gap:6px">
+            <sc-for list="{{ p.stack }}" as="s" hint-placeholder-count="4">
+              <span style="font-family:'Space Mono',monospace;font-size:10.5px;font-weight:700;padding:3px 8px;border:2px solid {{ theme.ink }}">{{ s }}</span>
+            </sc-for>
+          </div>
+        </a>
+      </sc-for>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact" style="border-top:3px solid {{ theme.ink }};background:{{ theme.primary }}">
+    <div style="max-width:1200px;margin:0 auto;padding:72px 26px">
+      <div style="display:inline-block;font-family:'Space Mono',monospace;font-size:12px;font-weight:700;text-transform:uppercase;background:{{ theme.ink }};color:{{ theme.bg }};padding:6px 12px;margin-bottom:20px">05 — {{ t.contactLabel }}</div>
+      <h2 style="font-family:'Archivo Black',sans-serif;font-size:clamp(40px,8vw,100px);line-height:.9;text-transform:uppercase;letter-spacing:-.03em;margin-bottom:26px">{{ t.contactTitle }}</h2>
+      <p style="font-size:17px;font-weight:500;line-height:1.55;max-width:540px;margin-bottom:34px">{{ t.contactBody }}</p>
+      <a href="/cdn-cgi/l/email-protection#5b3a3a2d32373a3a282f341b3c363a323775383436" style="display:inline-block;font-family:'Space Mono',monospace;font-size:14px;font-weight:700;text-transform:uppercase;padding:16px 30px;background:{{ theme.ink }};color:{{ theme.bg }};border:2px solid {{ theme.ink }};box-shadow:5px 5px 0 {{ theme.bg }};margin-bottom:48px;transition:transform .12s,box-shadow .12s" onMouseEnter="{{ pressInLight }}" onMouseLeave="{{ pressOutLight }}">{{ t.contactCta }} →</a>
+      <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:14px" class="pf-socials">
+        <sc-for list="{{ socials }}" as="s" hint-placeholder-count="4">
+          <a href="{{ s.href }}" target="_blank" rel="noopener" style="display:flex;flex-direction:column;gap:5px;background:{{ theme.bg }};border:2px solid {{ theme.ink }};padding:16px;box-shadow:4px 4px 0 {{ theme.ink }};transition:transform .12s,box-shadow .12s" onMouseEnter="{{ pressIn }}" onMouseLeave="{{ pressOut }}">
+            <span style="font-family:'Space Mono',monospace;font-size:10px;font-weight:700;text-transform:uppercase;opacity:.6">{{ s.k }}</span>
+            <span style="font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:14px">{{ s.v }}</span>
+          </a>
+        </sc-for>
+      </div>
+      <div style="font-family:'Space Mono',monospace;font-size:11px;font-weight:700;text-transform:uppercase;margin-top:40px;border-top:2px solid {{ theme.ink }};padding-top:18px">© 2026 Alex Avila Asto — Lima, Peru · Open to remote</div>
+    </div>
+  </section>
+
+  <!-- PALETTE SWITCHER -->
+  <div style="position:fixed;bottom:18px;left:18px;z-index:70;display:flex;align-items:center;gap:8px;padding:8px 10px;background:{{ theme.bg }};border:2px solid {{ theme.ink }};box-shadow:4px 4px 0 {{ theme.ink }}">
+    <span style="font-family:'Space Mono',monospace;font-size:9px;font-weight:700;text-transform:uppercase">Palette</span>
+    <sc-for list="{{ paletteOptions }}" as="p" hint-placeholder-count="4">
+      <button onClick="{{ p.onClick }}" title="{{ p.name }}" style="width:18px;height:18px;border:2px solid {{ theme.ink }};cursor:pointer;background:{{ p.swatch }};outline:{{ p.outline }};outline-offset:2px"></button>
+    </sc-for>
+  </div>
+
+</div>
+</x-dc>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1200,&quot;height&quot;:900},&quot;palette&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;coral&quot;,&quot;yellow&quot;,&quot;blue&quot;,&quot;green&quot;],&quot;default&quot;:&quot;coral&quot;,&quot;tsType&quot;:&quot;string&quot;}}">
+class Component extends DCLogic {
+  state = { lang: 'es', palette: this.props.palette || 'coral' };
+
+  themeFor(key) {
+    const primaries = {
+      coral:'#ff6b4a', yellow:'#ffd23f', blue:'#5577ff', green:'#22cc88'
+    };
+    return {
+      bg:'#f7f1e3', paper:'#fffdf6', ink:'#161310',
+      primary: primaries[key] || primaries.coral,
+      palette:['#ffd23f','#ff6b4a','#5577ff','#22cc88','#c08bf0','#ff9fc2']
+    };
+  }
+
+  content() {
+    return {
+      es: {
+        eyebrow:'Software Engineer · Backend · Cloud · DevOps', openBadge:'Open to work',
+        cvBtn:'Ver CV', ctaWork:'Ver proyectos', ctaContact:'Hablemos',
+        heroTagline:'Construyo sistemas escalables de punta a punta — de la API al pipeline.',
+        aboutLabel:'Sobre mí',
+        aboutLead:'Software Engineer enfocado en backend, cloud y DevOps, con base fullstack sólida.',
+        aboutBody:'Diseño arquitecturas escalables y resilientes con IaC (Terraform/CDK), CI/CD y observabilidad completa (Grafana, Loki, Prometheus). He llevado productos de monolito a serverless híbrido, asegurado APIs en producción y reducido tiempos de operación. Estudio Ingeniería de Software en la UPC (Lima) mientras construyo sistemas reales para empresas y startups.',
+        stackTitle:'Stack', expTitle:'Experiencia',
+        eduDegree:'Ing. de Software', eduBody:'SDLC, diseño y testing de software, estructuras de datos y algoritmos avanzados, y modelado de datos relacional/NoSQL. Graduación esperada 2026.',
+        workTitle:'Proyectos', featuredTag:'Proyecto estrella',
+        contactLabel:'Contacto', contactTitle:'Construyamos algo épico',
+        contactBody:'Disponible para roles fullstack, backend y cloud — remoto internacional o presencial.',
+        contactCta:'Escríbeme'
+      },
+      en: {
+        eyebrow:'Software Engineer · Backend · Cloud · DevOps', openBadge:'Open to work',
+        cvBtn:'View CV', ctaWork:'View work', ctaContact:'Get in touch',
+        heroTagline:'I ship scalable systems end to end — from the API to the pipeline.',
+        aboutLabel:'About',
+        aboutLead:'Software Engineer focused on backend, cloud and DevOps, with a solid fullstack foundation.',
+        aboutBody:'I design scalable, resilient architectures with IaC (Terraform/CDK), CI/CD and full observability (Grafana, Loki, Prometheus). I have migrated products from monolith to hybrid serverless, hardened production APIs and cut operational time. I study Software Engineering at UPC (Lima) while building real systems for companies and startups.',
+        stackTitle:'Stack', expTitle:'Experience',
+        eduDegree:'B.Sc. Software Eng.', eduBody:'SDLC, software design & testing, advanced data structures & algorithms, and relational/NoSQL data modeling. Expected graduation 2026.',
+        workTitle:'Work', featuredTag:'Flagship project',
+        contactLabel:'Contact', contactTitle:'Let\u2019s build something epic',
+        contactBody:'Open to fullstack, backend and cloud roles — international remote or on-site.',
+        contactCta:'Email me'
+      }
+    };
+  }
+
+  data(lang, pal) {
+    const es = lang === 'es';
+    const C = pal;
+    return {
+      marquee:'JAVA ★ SPRING BOOT ★ QUARKUS ★ AWS ★ AZURE ★ KUBERNETES ★ TERRAFORM ★ REACT ★ FLUTTER ★ KAFKA ★ MONGODB ★ REDIS ★ GRAFANA',
+      heroChips:['Java','Spring Boot','Quarkus','AWS','Azure','Kubernetes','React'].map((t,i)=>({t, bg:C[i%C.length]})),
+      stats:[
+        {n:'6+', l: es?'años programando':'years coding', bg:C[0]},
+        {n:'5+', l: es?'sistemas en prod.':'production systems', bg:C[1]},
+        {n:'2026', l: es?'graduación UPC':'UPC graduation', bg:C[2]}
+      ],
+      stackGroups:[
+        {label: es?'Lenguajes':'Languages', color:C[0], items:['Java','Kotlin','TypeScript','Python','Dart','C++']},
+        {label:'Backend', color:C[1], items:['Spring Boot','Quarkus','Microservices','Event-driven','REST','WebSockets','Kafka']},
+        {label:'Cloud / DevOps', color:C[2], items:['AWS','Azure','Kubernetes','Terraform','CDK','GitHub Actions','Docker']},
+        {label: es?'Datos':'Data', color:C[3], items:['PostgreSQL','MongoDB','Redis','DynamoDB','SQL']},
+        {label:'Frontend', color:C[4], items:['React','Flutter','Angular','Vue','Firebase']},
+        {label: es?'Observ. / QA':'Observability / QA', color:C[5], items:['Grafana','Loki','Prometheus','Sentry','JUnit','Mockito']}
+      ],
+      experience:[
+        {color:C[1], period:'Apr 2026 — present', location:'Lima', role:'Backend Developer', company:'Dinet',
+         bullets: es?[
+           'Backend de un e-commerce de alta transaccionalidad con procesamiento batch confiable.',
+           'Seguridad de APIs con JWT y hardening; flujos asíncronos con Azure Service Bus.',
+           'Azure Pipelines → despliegue a Kubernetes (AKS); observabilidad con Grafana, Loki y Prometheus para reducir el MTTR.'
+         ]:[
+           'Backend for a high-transaction ecommerce platform with reliable batch processing.',
+           'API security with JWT & hardening; async flows via Azure Service Bus.',
+           'Azure Pipelines → deploy to Kubernetes (AKS); observability with Grafana, Loki & Prometheus to cut MTTR.'
+         ], tags:['Java','Azure','AKS','Service Bus','Grafana']},
+        {color:C[2], period:'Dec 2024 — present', location:'Remote', role:'Software Engineer (Backend & DevOps)', company:'Influyo',
+         bullets: es?[
+           'Lideré la arquitectura de monolito a serverless híbrido en AWS (Lambda, API Gateway).',
+           'IaC con Terraform y CI/CD en GitHub Actions con cobertura JaCoCo.',
+           'Monitoreo de errores con Sentry y preparación para lanzamiento a producción.'
+         ]:[
+           'Led architecture from monolith to hybrid serverless on AWS (Lambda, API Gateway).',
+           'IaC with Terraform and CI/CD in GitHub Actions with JaCoCo coverage.',
+           'Error monitoring with Sentry and production launch readiness.'
+         ], tags:['Java','AWS Lambda','Terraform','GitHub Actions']},
+        {color:C[3], period:'May 2024 — Dec 2025', location:'Lima', role:'Software Developer Intern', company:'Domain Consulting',
+         bullets: es?[
+           'Extensiones a medida para Alfresco Process Services (Activiti).',
+           'Integración y sincronización con Keycloak; dashboards en Kibana.',
+           'Capacitaciones técnicas de administración y desarrollo.'
+         ]:[
+           'Custom Alfresco Process Services (Activiti) extensions.',
+           'Keycloak integration & sync; Kibana dashboards.',
+           'Technical training on system administration & development.'
+         ], tags:['Java','Alfresco','Keycloak','Kibana']}
+      ],
+      featured:{
+        name:'Alkila', link:'https://ryzeon.me',
+        blurb: es
+          ?'SaaS multi-tenant para operación hotelera: aislamiento por tenant, arquitectura de plugins (SPI) para facturación SUNAT y notificaciones, eventos de dominio en tiempo real (WebSocket) y app Flutter (Web/iOS/Android).'
+          :'Multi-tenant SaaS for hotel operations: per-tenant isolation, plugin SPI for SUNAT e-invoicing & notifications, real-time domain events (WebSocket) and a Flutter app (Web/iOS/Android).',
+        stack:['Java 17','Spring Boot 3.5','MongoDB','Redis','Flutter','WebSocket','AWS','Gemini'],
+        metrics:[
+          {n:'~60%', l: es?'menos tiempo de reserva (5 min → ≤2 min)':'faster bookings (5 min → ≤2 min)'},
+          {n:'3', l: es?'plataformas · un código':'platforms · one codebase'}
+        ]
+      },
+      projects:[
+        {color:C[0], name:'SWARD', link:'https://github.com/sward-UPC',
+         blurb: es?'Plataforma de riesgo académico con IA — microservicios FastAPI, motor de recomendación (SAKT) con XAI e integración con Moodle sobre AWS serverless.':'AI academic-risk platform — FastAPI microservices, SAKT recommendation engine with XAI, and Moodle integration on AWS serverless.',
+         stack:['Python','FastAPI','AWS CDK','Lambda','React','ML']},
+        {color:C[2], name:'InnControl', link:'https://github.com/InnControlUPC',
+         blurb: es?'Gestión hotelera como microservicios Spring Cloud — Eureka, API Gateway y servicios de dominio (IAM, inventario, tareas).':'Hotel management as Spring Cloud microservices — Eureka, API Gateway and domain services (IAM, inventory, tasks).',
+         stack:['Java','Spring Cloud','Eureka','API Gateway','TypeScript']},
+        {color:C[3], name:'RutaKids', link:'https://llanta.ryzeon.me',
+         blurb: es?'Tracking IoT de transporte escolar — firmware ESP32, gateway edge en Python y microservicios Java con app web.':'IoT school-transport tracking — ESP32 firmware, a Python edge gateway and Java microservices with a web app.',
+         stack:['ESP32 / C++','Python','Java','IoT']},
+        {color:C[4], name:'discord-html-transcripts', link:'https://github.com/Ryzeon/discord-html-transcripts',
+         blurb: es?'Librería Java open-source para generar transcripciones HTML con JDA. Usada por la comunidad.':'Open-source Java library for nicely formatted HTML transcripts with JDA. Used by the community.',
+         stack:['Java','JDA','Open Source']}
+      ],
+      socials:[
+        {k:'Email', v:'aavilaasto@gmail.com', href:'mailto:aavilaasto@gmail.com'},
+        {k:'LinkedIn', v:'/in/alex-avila-asto', href:'https://linkedin.com/in/alex-avila-asto'},
+        {k:'GitHub', v:'@Ryzeon', href:'https://github.com/Ryzeon'},
+        {k:'X', v:'@Ryzeon_', href:'https://twitter.com/Ryzeon_'}
+      ]
+    };
+  }
+
+  componentDidMount() {
+    const apply = () => {
+      const w = window.innerWidth;
+      document.querySelectorAll('.pf-nav').forEach(e=>e.style.display = w>940?'flex':'none');
+      document.querySelectorAll('.pf-herogrid').forEach(e=>e.style.gridTemplateColumns = w>780?'1fr 320px':'1fr');
+      document.querySelectorAll('.pf-heroimg').forEach(e=>e.style.display = w>780?'block':'none');
+      document.querySelectorAll('.pf-stats,.pf-stackgrid').forEach(e=>e.style.gridTemplateColumns = w>720?'repeat(3,1fr)':(w>480?'repeat(2,1fr)':'1fr'));
+      document.querySelectorAll('.pf-featgrid').forEach(e=>e.style.gridTemplateColumns = w>620?'1.4fr 1fr':'1fr');
+      document.querySelectorAll('.pf-projgrid').forEach(e=>e.style.gridTemplateColumns = w>620?'repeat(2,1fr)':'1fr');
+      document.querySelectorAll('.pf-socials').forEach(e=>e.style.gridTemplateColumns = w>620?'repeat(4,1fr)':'repeat(2,1fr)');
+    };
+    apply(); this._onResize = apply; window.addEventListener('resize', apply);
+  }
+  componentWillUnmount(){ if(this._onResize) window.removeEventListener('resize', this._onResize); }
+
+  renderVals() {
+    const lang = this.state.lang, palette = this.state.palette;
+    const theme = this.themeFor(palette);
+    const t = this.content()[lang];
+    const d = this.data(lang, theme.palette);
+    const navLinks = [
+      {label: lang==='es'?'Sobre mí':'About', href:'#about'},
+      {label: 'Stack', href:'#stack'},
+      {label: lang==='es'?'Exp':'Exp', href:'#experience'},
+      {label: lang==='es'?'Proyectos':'Work', href:'#work'},
+      {label: lang==='es'?'Contacto':'Contact', href:'#contact'}
+    ].map(l=>({ ...l, onEnter:e=>e.currentTarget.style.background=theme.primary, onLeave:e=>e.currentTarget.style.background='transparent' }));
+
+    const paletteOptions = [
+      {key:'coral', name:'Coral', swatch:'#ff6b4a'},
+      {key:'yellow', name:'Yellow', swatch:'#ffd23f'},
+      {key:'blue', name:'Blue', swatch:'#5577ff'},
+      {key:'green', name:'Green', swatch:'#22cc88'}
+    ].map(o=>({ name:o.name, swatch:o.swatch, onClick:()=>this.setState({palette:o.key}), outline: palette===o.key?('2px solid '+theme.ink):'none' }));
+
+    const pressIn = e=>{e.currentTarget.style.transform='translate(2px,2px)';e.currentTarget.style.boxShadow='1px 1px 0 '+theme.ink;};
+    const pressOut = e=>{e.currentTarget.style.transform='translate(0,0)';e.currentTarget.style.boxShadow='';};
+    const pressInBig = e=>{e.currentTarget.style.transform='translate(3px,3px)';e.currentTarget.style.boxShadow='2px 2px 0 '+theme.ink;};
+    const pressOutBig = e=>{e.currentTarget.style.transform='translate(0,0)';e.currentTarget.style.boxShadow='';};
+    const pressInLight = e=>{e.currentTarget.style.transform='translate(2px,2px)';e.currentTarget.style.boxShadow='1px 1px 0 '+theme.bg;};
+    const pressOutLight = e=>{e.currentTarget.style.transform='translate(0,0)';e.currentTarget.style.boxShadow='';};
+
+    return {
+      theme, t, lang, navLinks, paletteOptions,
+      marquee:d.marquee, heroChips:d.heroChips, stats:d.stats,
+      stackGroups:d.stackGroups, experience:d.experience,
+      featured:d.featured, projects:d.projects, socials:d.socials,
+      setES:()=>this.setState({lang:'es'}), setEN:()=>this.setState({lang:'en'}),
+      esBg: lang==='es'?theme.ink:'transparent', esFg: lang==='es'?theme.bg:theme.ink,
+      enBg: lang==='en'?theme.ink:'transparent', enFg: lang==='en'?theme.bg:theme.ink,
+      pressIn, pressOut, pressInBig, pressOutBig, pressInLight, pressOutLight
+    };
+  }
+}
+</script>
+</body>
+</html>
