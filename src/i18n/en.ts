@@ -1,0 +1,32 @@
+import type { UIStrings } from './types'
+
+export const en: UIStrings = {
+  nav: {
+    about: 'About',
+    stack: 'Stack',
+    experience: 'Exp',
+    work: 'Work',
+    contact: 'Contact',
+  },
+  eyebrow: 'Software Engineer · Backend · Cloud · DevOps',
+  openBadge: 'Open to work',
+  cvBtn: 'View CV',
+  ctaWork: 'View work',
+  ctaContact: 'Get in touch',
+  heroTagline: 'I ship scalable systems end to end — from the API to the pipeline.',
+  aboutLabel: 'About',
+  aboutLead: 'Software Engineer focused on backend, cloud and DevOps, with a solid fullstack foundation.',
+  aboutBody:
+    'I design scalable, resilient architectures with IaC (Terraform/CDK), CI/CD and full observability (Grafana, Loki, Prometheus). I have migrated products from monolith to hybrid serverless, hardened production APIs and cut operational time. I study Software Engineering at UPC (Lima) while building real systems for companies and startups.',
+  stackTitle: 'Stack',
+  expTitle: 'Experience',
+  eduDegree: 'B.Sc. Software Eng.',
+  eduBody:
+    'SDLC, software design & testing, advanced data structures & algorithms, and relational/NoSQL data modeling. Expected graduation 2026.',
+  workTitle: 'Work',
+  featuredTag: 'Flagship project',
+  contactLabel: 'Contact',
+  contactTitle: 'Let’s build something epic',
+  contactBody: 'Open to fullstack, backend and cloud roles — international remote or on-site.',
+  contactCta: 'Email me',
+}
