@@ -95,8 +95,8 @@ export function getPortfolio(lang: Lang): Portfolio {
     marquee: MARQUEE,
     heroChips: HERO_CHIPS.map((label, i) => ({ label, color: PALETTE[i % PALETTE.length] })),
     stats: [
-      { value: '6+', label: pick(lang, 'años programando', 'years coding'), color: PALETTE[0] },
-      { value: '5+', label: pick(lang, 'sistemas en prod.', 'production systems'), color: PALETTE[1] },
+      { value: '2+', label: pick(lang, 'años de experiencia', 'years of experience'), color: PALETTE[0] },
+      { value: '3+', label: pick(lang, 'sistemas en producción', 'production systems'), color: PALETTE[1] },
       { value: '2026', label: pick(lang, 'graduación UPC', 'UPC graduation'), color: PALETTE[2] },
     ],
     stackGroups: [
