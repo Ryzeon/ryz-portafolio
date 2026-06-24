@@ -9,6 +9,7 @@ import Experience from './Experience.astro'
 import Work from './Work.astro'
 import Contact from './Contact.astro'
 import PaletteSwitcher from './PaletteSwitcher.astro'
+import CvShortcut from './CvShortcut.astro'
 import { getUI } from '../i18n'
 import { getPortfolio } from '../data/portfolio'
 import type { Lang } from '../i18n/types'
@@ -43,4 +44,5 @@ const meta = {
   <Work ui={ui} featured={data.featured} projects={data.projects} />
   <Contact ui={ui} socials={data.socials} />
   <PaletteSwitcher />
+  <CvShortcut />
 </BaseLayout>
