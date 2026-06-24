@@ -1,0 +1,135 @@
+---
+import { getRelativeLocaleUrl } from 'astro:i18n'
+import type { Lang, UIStrings } from '../i18n/types'
+
+interface Props {
+  lang: Lang
+  ui: UIStrings
+}
+
+const { lang, ui } = Astro.props
+
+const links = [
+  { label: ui.nav.about, href: '#about' },
+  { label: ui.nav.stack, href: '#stack' },
+  { label: ui.nav.experience, href: '#experience' },
+  { label: ui.nav.work, href: '#work' },
+  { label: ui.nav.contact, href: '#contact' },
+]
+
+const esUrl = getRelativeLocaleUrl('es', '')
+const enUrl = getRelativeLocaleUrl('en', '')
+---
+
+<nav class="nav">
+  <div class="pf-container nav__inner">
+    <a href="#top" class="nav__brand">ALEX<span class="nav__dot">.</span>AVILA</a>
+
+    <div class="nav__right">
+      <div class="nav__links">
+        {links.map((link) => <a href={link.href} class="nav__link">{link.label}</a>)}
+      </div>
+
+      <div class="nav__lang">
+        <a href={esUrl} class:list={['nav__lang-btn', { 'is-active': lang === 'es' }]}>ES</a>
+        <a href={enUrl} class:list={['nav__lang-btn', { 'is-active': lang === 'en' }]}>EN</a>
+      </div>
+
+      <a href="https://cv.ryzeon.me" target="_blank" rel="noopener" class="nav__cv pf-press">
+        {ui.cvBtn} ↗
+      </a>
+    </div>
+  </div>
+</nav>
+
+<style>
+  .nav {
+    position: sticky;
+    top: 0;
+    z-index: 60;
+    background: var(--pf-bg);
+    border-bottom: 3px solid var(--pf-ink);
+  }
+
+  .nav__inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 14px;
+    padding-block: 14px;
+  }
+
+  .nav__brand {
+    font-family: var(--pf-font-display);
+    font-size: 18px;
+    letter-spacing: -0.01em;
+  }
+
+  .nav__dot {
+    color: var(--pf-primary);
+  }
+
+  .nav__right {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .nav__links {
+    display: none;
+    gap: 4px;
+  }
+
+  .nav__link {
+    font-family: var(--pf-font-mono);
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    padding: 7px 10px;
+    transition: background 0.15s;
+  }
+
+  .nav__link:hover {
+    background: var(--pf-primary);
+  }
+
+  .nav__lang {
+    display: flex;
+    border: 2px solid var(--pf-ink);
+  }
+
+  .nav__lang-btn {
+    font-family: var(--pf-font-mono);
+    font-size: 12px;
+    font-weight: 700;
+    padding: 6px 10px;
+    cursor: pointer;
+  }
+
+  .nav__lang-btn + .nav__lang-btn {
+    border-left: 2px solid var(--pf-ink);
+  }
+
+  .nav__lang-btn.is-active {
+    background: var(--pf-ink);
+    color: var(--pf-bg);
+  }
+
+  .nav__cv {
+    font-family: var(--pf-font-mono);
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    padding: 8px 14px;
+    background: var(--pf-primary);
+    color: var(--pf-ink);
+    border: 2px solid var(--pf-ink);
+    box-shadow: 3px 3px 0 var(--pf-ink);
+  }
+
+  @media (min-width: 940px) {
+    .nav__links {
+      display: flex;
+    }
+  }
+</style>

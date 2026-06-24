@@ -1,10 +1,16 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro'
+import Nav from '../components/Nav.astro'
+import { getUI } from '../i18n'
+
+const lang = 'es'
+const ui = getUI(lang)
 ---
 
 <BaseLayout
-  lang="es"
+  lang={lang}
   title="Alex Avila — Software Engineer"
   description="Portafolio de Alex Avila, Software Engineer enfocado en backend, cloud y DevOps."
 >
+  <Nav lang={lang} ui={ui} />
 </BaseLayout>
