@@ -10,7 +10,7 @@ interface Props {
 const { ui, socials } = Astro.props
 
 const email = socials.find((social) => social.key === 'Email')
-const mailto = email?.href ?? 'mailto:aavilaasto@gmail.com'
+const mailto = email?.href ?? 'mailto:contact@ryzeon.dev'
 ---
 
 <section id="contact" class="contact">
@@ -19,7 +19,62 @@ const mailto = email?.href ?? 'mailto:aavilaasto@gmail.com'
     <h2 class="contact__title">{ui.contactTitle}</h2>
     <p class="contact__body">{ui.contactBody}</p>
 
-    <a href={mailto} class="contact__cta pf-press-light">{ui.contactCta} →</a>
+    <form
+      class="contact__form"
+      id="contact-form"
+      data-sending={ui.form.sending}
+      data-success={ui.form.success}
+      data-error={ui.form.error}
+    >
+      <div class="contact__row">
+        <div class="contact__field">
+          <label for="cf-name">{ui.form.nameLabel}</label>
+          <input
+            id="cf-name"
+            name="name"
+            type="text"
+            required
+            maxlength="120"
+            placeholder={ui.form.namePlaceholder}
+          />
+        </div>
+        <div class="contact__field">
+          <label for="cf-email">{ui.form.emailLabel}</label>
+          <input
+            id="cf-email"
+            name="email"
+            type="email"
+            required
+            placeholder={ui.form.emailPlaceholder}
+          />
+        </div>
+      </div>
+
+      <div class="contact__field">
+        <label for="cf-message">{ui.form.messageLabel}</label>
+        <textarea
+          id="cf-message"
+          name="message"
+          required
+          rows="5"
+          maxlength="5000"
+          placeholder={ui.form.messagePlaceholder}></textarea>
+      </div>
+
+      <input
+        type="text"
+        name="company"
+        class="contact__hp"
+        tabindex="-1"
+        autocomplete="off"
+        aria-hidden="true"
+      />
+
+      <button type="submit" class="contact__submit pf-press-light">{ui.form.send} →</button>
+      <p class="contact__status" role="status" aria-live="polite"></p>
+    </form>
+
+    <a href={mailto} class="contact__fallback">{ui.contactCta} →</a>
 
     <div class="contact__socials">
       {
@@ -75,8 +130,61 @@ const mailto = email?.href ?? 'mailto:aavilaasto@gmail.com'
     margin-bottom: 34px;
   }
 
-  .contact__cta {
-    display: inline-block;
+  .contact__form {
+    max-width: 620px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .contact__row {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .contact__field {
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+  }
+
+  .contact__field label {
+    font-family: var(--pf-font-mono);
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+  }
+
+  .contact__field input,
+  .contact__field textarea {
+    font-family: var(--pf-font-body);
+    font-size: 15px;
+    color: var(--pf-ink);
+    background: var(--pf-bg);
+    border: 2px solid var(--pf-ink);
+    padding: 12px 14px;
+    resize: vertical;
+  }
+
+  .contact__field input:focus-visible,
+  .contact__field textarea:focus-visible {
+    outline: 3px solid var(--pf-ink);
+    outline-offset: 2px;
+  }
+
+  .contact__hp {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    border: 0;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+  }
+
+  .contact__submit {
+    align-self: flex-start;
     font-family: var(--pf-font-mono);
     font-size: 14px;
     font-weight: 700;
@@ -86,20 +194,51 @@ const mailto = email?.href ?? 'mailto:aavilaasto@gmail.com'
     color: var(--pf-bg);
     border: 2px solid var(--pf-ink);
     box-shadow: 5px 5px 0 var(--pf-bg);
-    margin-bottom: 48px;
+    cursor: pointer;
     transition: transform 0.12s, box-shadow 0.12s;
   }
 
-  .contact__cta:hover,
-  .contact__cta:focus-visible {
+  .contact__submit:hover,
+  .contact__submit:focus-visible {
     transform: translate(2px, 2px);
     box-shadow: 1px 1px 0 var(--pf-bg);
+  }
+
+  .contact__submit:disabled {
+    cursor: progress;
+    opacity: 0.7;
+  }
+
+  .contact__status {
+    font-family: var(--pf-font-mono);
+    font-size: 13px;
+    font-weight: 700;
+    min-height: 1.2em;
+  }
+
+  .contact__status.is-success {
+    color: var(--pf-ink);
+  }
+
+  .contact__status.is-error {
+    color: #b11400;
+  }
+
+  .contact__fallback {
+    display: inline-block;
+    font-family: var(--pf-font-mono);
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    margin-top: 24px;
+    border-bottom: 2px solid var(--pf-ink);
   }
 
   .contact__socials {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     gap: 14px;
+    margin-top: 48px;
   }
 
   .contact__social {
@@ -135,9 +274,55 @@ const mailto = email?.href ?? 'mailto:aavilaasto@gmail.com'
     padding-top: 18px;
   }
 
+  @media (min-width: 560px) {
+    .contact__row {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+
   @media (min-width: 620px) {
     .contact__socials {
       grid-template-columns: repeat(4, 1fr);
     }
   }
 </style>
+
+<script>
+  const form = document.getElementById('contact-form') as HTMLFormElement | null
+
+  if (form) {
+    const button = form.querySelector('button[type="submit"]') as HTMLButtonElement
+    const status = form.querySelector('.contact__status') as HTMLParagraphElement
+    const sendLabel = button.textContent ?? ''
+
+    form.addEventListener('submit', async (event) => {
+      event.preventDefault()
+
+      const payload = Object.fromEntries(new FormData(form).entries())
+      button.disabled = true
+      button.textContent = form.dataset.sending ?? ''
+      status.textContent = ''
+      status.classList.remove('is-success', 'is-error')
+
+      try {
+        const response = await fetch('/api/contact', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload),
+        })
+
+        if (!response.ok) throw new Error('request_failed')
+
+        form.reset()
+        status.textContent = form.dataset.success ?? ''
+        status.classList.add('is-success')
+      } catch {
+        status.textContent = form.dataset.error ?? ''
+        status.classList.add('is-error')
+      } finally {
+        button.disabled = false
+        button.textContent = sendLabel
+      }
+    })
+  }
+</script>
