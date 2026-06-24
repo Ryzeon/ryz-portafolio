@@ -35,6 +35,15 @@ const enUrl = getRelativeLocaleUrl('en', '')
         <a href={enUrl} class:list={['nav__lang-btn', { 'is-active': lang === 'en' }]}>EN</a>
       </div>
 
+      <a
+        href="https://shell.ryzeon.me"
+        target="_blank"
+        rel="noopener"
+        class="nav__cv nav__cv--terminal pf-press"
+      >
+        <span class="nav__prompt">&gt;_</span> {ui.cvTerminalBtn} ↗
+      </a>
+
       <a href="https://cv.ryzeon.me" target="_blank" rel="noopener" class="nav__cv pf-press">
         {ui.cvBtn} ↗
       </a>
@@ -125,6 +134,26 @@ const enUrl = getRelativeLocaleUrl('en', '')
     color: var(--pf-ink);
     border: 2px solid var(--pf-ink);
     box-shadow: 3px 3px 0 var(--pf-ink);
+  }
+
+  .nav__cv--terminal {
+    background: var(--pf-ink);
+    color: var(--pf-bg);
+  }
+
+  .nav__prompt {
+    color: var(--pf-primary);
+  }
+
+  /* Keep the terminal CV out of the way on narrow screens. */
+  .nav__cv--terminal {
+    display: none;
+  }
+
+  @media (min-width: 560px) {
+    .nav__cv--terminal {
+      display: inline-block;
+    }
   }
 
   @media (min-width: 940px) {
