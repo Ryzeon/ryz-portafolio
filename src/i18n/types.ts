@@ -45,4 +45,5 @@ export interface UIStrings {
   contactBody: string
   contactCta: string
   saveHint: string
+  copied: string
 }

@@ -60,7 +60,8 @@ export interface Project {
 export interface Social {
   key: string
   value: string
-  href: string
+  href?: string
+  copy?: string
 }
 
 export interface Portfolio {
@@ -84,7 +85,7 @@ const SOCIALS: Social[] = [
   { key: 'Email', value: 'aavilaasto@gmail.com', href: 'mailto:aavilaasto@gmail.com' },
   { key: 'LinkedIn', value: '/in/alex-avila-asto', href: 'https://linkedin.com/in/alex-avila-asto' },
   { key: 'GitHub', value: '@Ryzeon', href: 'https://github.com/Ryzeon' },
-  { key: 'X', value: '@Ryzeon_', href: 'https://twitter.com/Ryzeon_' },
+  { key: 'Discord', value: '@ryzeon_', copy: 'ryzeon_' },
 ]
 
 const pick = <T,>(lang: Lang, es: T, en: T): T => (lang === 'es' ? es : en)

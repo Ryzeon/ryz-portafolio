@@ -44,4 +44,5 @@ export const es: UIStrings = {
     'Disponible para roles fullstack, backend y cloud — remoto internacional o presencial.',
   contactCta: 'Escríbeme',
   saveHint: 'Tip: ⌘/Ctrl + S guarda mi CV',
+  copied: '¡copiado! ✓',
 }

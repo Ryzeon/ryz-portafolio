@@ -78,12 +78,24 @@ const mailto = email?.href ?? 'mailto:contact@ryzeon.dev'
 
     <div class="contact__socials">
       {
-        socials.map((social) => (
-          <a href={social.href} target="_blank" rel="noopener" class="contact__social pf-press">
-            <span class="contact__social-key">{social.key}</span>
-            <span class="contact__social-value">{social.value}</span>
-          </a>
-        ))
+        socials.map((social) =>
+          social.copy ? (
+            <button
+              type="button"
+              class="contact__social pf-press"
+              data-copy={social.copy}
+              data-copied={ui.copied}
+            >
+              <span class="contact__social-key">{social.key}</span>
+              <span class="contact__social-value">{social.value}</span>
+            </button>
+          ) : (
+            <a href={social.href} target="_blank" rel="noopener" class="contact__social pf-press">
+              <span class="contact__social-key">{social.key}</span>
+              <span class="contact__social-value">{social.value}</span>
+            </a>
+          ),
+        )
       }
     </div>
 
@@ -254,6 +266,13 @@ const mailto = email?.href ?? 'mailto:contact@ryzeon.dev'
     box-shadow: 4px 4px 0 var(--pf-ink);
   }
 
+  button.contact__social {
+    font: inherit;
+    text-align: left;
+    width: 100%;
+    cursor: pointer;
+  }
+
   .contact__social-key {
     font-family: var(--pf-font-mono);
     font-size: 10px;
@@ -299,6 +318,28 @@ const mailto = email?.href ?? 'mailto:contact@ryzeon.dev'
 </style>
 
 <script>
+  document.querySelectorAll('[data-copy]').forEach((element) => {
+    element.addEventListener('click', async () => {
+      const text = element.getAttribute('data-copy')
+      if (!text) return
+
+      try {
+        await navigator.clipboard.writeText(text)
+      } catch {
+        return
+      }
+
+      const value = element.querySelector('.contact__social-value')
+      if (!value) return
+
+      const original = value.textContent
+      value.textContent = element.getAttribute('data-copied') ?? original
+      setTimeout(() => {
+        value.textContent = original
+      }, 1200)
+    })
+  })
+
   const form = document.getElementById('contact-form') as HTMLFormElement | null
 
   if (form) {
