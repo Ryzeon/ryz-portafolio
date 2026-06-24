@@ -34,7 +34,9 @@ body {
   background: var(--pf-bg);
   color: var(--pf-ink);
   min-height: 100vh;
-  overflow-x: hidden;
+  /* clip (not hidden) avoids turning body into a scroll container,
+     which would break scroll-behavior: smooth on <html>. */
+  overflow-x: clip;
   -webkit-font-smoothing: antialiased;
 }
 
