@@ -31,7 +31,7 @@ export default defineConfig({
       CONTACT_FROM: envField.string({
         context: 'server',
         access: 'public',
-        default: 'Portafolio <portfolio@ryzeon.dev>',
+        default: 'Alex Avila <no-reply@ryzeon.dev>',
       }),
     },
   },
