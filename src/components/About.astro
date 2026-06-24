@@ -1,0 +1,86 @@
+---
+import SectionHeading from './SectionHeading.astro'
+import type { UIStrings } from '../i18n/types'
+import type { Stat } from '../data/portfolio'
+
+interface Props {
+  ui: UIStrings
+  stats: Stat[]
+}
+
+const { ui, stats } = Astro.props
+---
+
+<section id="about" class="pf-container pf-section">
+  <SectionHeading number="01" title={ui.aboutLabel} />
+  <p class="about__lead">{ui.aboutLead}</p>
+  <p class="about__body">{ui.aboutBody}</p>
+
+  <div class="about__stats">
+    {
+      stats.map((stat) => (
+        <div class="about__stat" style={`background:${stat.color}`}>
+          <div class="about__stat-value">{stat.value}</div>
+          <div class="about__stat-label">{stat.label}</div>
+        </div>
+      ))
+    }
+  </div>
+</section>
+
+<style>
+  .about__lead {
+    font-weight: 600;
+    font-size: clamp(22px, 3vw, 34px);
+    line-height: 1.25;
+    letter-spacing: -0.01em;
+    margin-bottom: 22px;
+    max-width: 900px;
+  }
+
+  .about__body {
+    font-size: 16px;
+    line-height: 1.7;
+    max-width: 700px;
+  }
+
+  .about__stats {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 16px;
+    margin-top: 36px;
+  }
+
+  .about__stat {
+    border: 3px solid var(--pf-ink);
+    padding: 22px;
+    box-shadow: 5px 5px 0 var(--pf-ink);
+  }
+
+  .about__stat-value {
+    font-family: var(--pf-font-display);
+    font-size: 48px;
+    line-height: 1;
+    letter-spacing: -0.03em;
+  }
+
+  .about__stat-label {
+    font-family: var(--pf-font-mono);
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    margin-top: 8px;
+  }
+
+  @media (min-width: 480px) {
+    .about__stats {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (min-width: 720px) {
+    .about__stats {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+</style>
