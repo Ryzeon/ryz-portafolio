@@ -13,7 +13,7 @@ export interface UIStrings {
   eyebrow: string
   openBadge: string
   cvBtn: string
-  cvTerminalBtn: string
+  cvShellBtn: string
   ctaWork: string
   ctaContact: string
   heroTagline: string

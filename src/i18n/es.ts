@@ -11,7 +11,7 @@ export const es: UIStrings = {
   eyebrow: 'Software Engineer · Backend · Cloud · DevOps',
   openBadge: 'Open to work',
   cvBtn: 'Ver CV',
-  cvTerminalBtn: 'CV Terminal',
+  cvShellBtn: 'Shell CV',
   ctaWork: 'Ver proyectos',
   ctaContact: 'Hablemos',
   heroTagline: 'Construyo sistemas escalables de punta a punta — de la API al pipeline.',
