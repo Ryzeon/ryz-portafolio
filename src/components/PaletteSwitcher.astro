@@ -1,0 +1,87 @@
+---
+const palettes = [
+  { key: 'coral', name: 'Coral', color: '#ff6b4a' },
+  { key: 'yellow', name: 'Yellow', color: '#ffd23f' },
+  { key: 'blue', name: 'Blue', color: '#5577ff' },
+  { key: 'green', name: 'Green', color: '#22cc88' },
+]
+---
+
+<div class="palette">
+  <span class="palette__label">Palette</span>
+  {
+    palettes.map((palette) => (
+      <button
+        type="button"
+        class="palette__swatch"
+        data-key={palette.key}
+        data-color={palette.color}
+        title={palette.name}
+        aria-label={palette.name}
+        style={`background:${palette.color}`}
+      />
+    ))
+  }
+</div>
+
+<style>
+  .palette {
+    position: fixed;
+    bottom: 18px;
+    left: 18px;
+    z-index: 70;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 10px;
+    background: var(--pf-bg);
+    border: 2px solid var(--pf-ink);
+    box-shadow: 4px 4px 0 var(--pf-ink);
+  }
+
+  .palette__label {
+    font-family: var(--pf-font-mono);
+    font-size: 9px;
+    font-weight: 700;
+    text-transform: uppercase;
+  }
+
+  .palette__swatch {
+    width: 18px;
+    height: 18px;
+    border: 2px solid var(--pf-ink);
+    cursor: pointer;
+    outline-offset: 2px;
+  }
+
+  .palette__swatch[aria-pressed='true'] {
+    outline: 2px solid var(--pf-ink);
+  }
+</style>
+
+<script>
+  const STORAGE_KEY = 'pf-palette'
+  const root = document.documentElement
+  const swatches = Array.from(
+    document.querySelectorAll<HTMLButtonElement>('.palette__swatch'),
+  )
+
+  function apply(key: string) {
+    const target = swatches.find((swatch) => swatch.dataset.key === key)
+    if (!target) return
+    root.style.setProperty('--pf-primary', target.dataset.color ?? '')
+    swatches.forEach((swatch) => {
+      swatch.setAttribute('aria-pressed', String(swatch === target))
+    })
+  }
+
+  swatches.forEach((swatch) => {
+    swatch.addEventListener('click', () => {
+      const key = swatch.dataset.key ?? 'coral'
+      apply(key)
+      localStorage.setItem(STORAGE_KEY, key)
+    })
+  })
+
+  apply(localStorage.getItem(STORAGE_KEY) ?? 'coral')
+</script>

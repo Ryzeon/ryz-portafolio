@@ -8,6 +8,7 @@ import Stack from '../components/Stack.astro'
 import Experience from '../components/Experience.astro'
 import Work from '../components/Work.astro'
 import Contact from '../components/Contact.astro'
+import PaletteSwitcher from '../components/PaletteSwitcher.astro'
 import { getUI } from '../i18n'
 import { getPortfolio } from '../data/portfolio'
 
@@ -29,4 +30,5 @@ const data = getPortfolio(lang)
   <Experience ui={ui} jobs={data.experience} education={data.education} />
   <Work ui={ui} featured={data.featured} projects={data.projects} />
   <Contact ui={ui} socials={data.socials} />
+  <PaletteSwitcher />
 </BaseLayout>
