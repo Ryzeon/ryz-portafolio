@@ -4,6 +4,7 @@ import Nav from '../components/Nav.astro'
 import Hero from '../components/Hero.astro'
 import Marquee from '../components/Marquee.astro'
 import About from '../components/About.astro'
+import Stack from '../components/Stack.astro'
 import { getUI } from '../i18n'
 import { getPortfolio } from '../data/portfolio'
 
@@ -21,4 +22,5 @@ const data = getPortfolio(lang)
   <Hero ui={ui} chips={data.heroChips} />
   <Marquee text={data.marquee} />
   <About ui={ui} stats={data.stats} />
+  <Stack ui={ui} groups={data.stackGroups} />
 </BaseLayout>
