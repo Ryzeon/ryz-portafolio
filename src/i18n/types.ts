@@ -8,8 +8,22 @@ export interface NavStrings {
   contact: string
 }
 
+export interface ContactForm {
+  nameLabel: string
+  namePlaceholder: string
+  emailLabel: string
+  emailPlaceholder: string
+  messageLabel: string
+  messagePlaceholder: string
+  send: string
+  sending: string
+  success: string
+  error: string
+}
+
 export interface UIStrings {
   nav: NavStrings
+  form: ContactForm
   eyebrow: string
   openBadge: string
   cvBtn: string
