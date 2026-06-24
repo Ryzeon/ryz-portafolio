@@ -1,4 +1,5 @@
 ---
+import { ClientRouter } from 'astro:transitions'
 import '../styles/global.css'
 
 interface Props {
@@ -93,6 +94,8 @@ const person = {
     />
 
     <script type="application/ld+json" set:html={JSON.stringify(person)} />
+
+    <ClientRouter />
   </head>
   <body id="top">
     <slot />

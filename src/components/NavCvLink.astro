@@ -121,14 +121,18 @@ const host = new URL(previewUrl).host
 </style>
 
 <script>
-  document.querySelectorAll<HTMLElement>('.cvlink').forEach((cvlink) => {
-    const iframe = cvlink.querySelector<HTMLIFrameElement>('.cvlink__preview-frame iframe')
-    if (!iframe?.dataset.src) return
+  function initCvPreviews() {
+    document.querySelectorAll<HTMLElement>('.cvlink').forEach((cvlink) => {
+      const iframe = cvlink.querySelector<HTMLIFrameElement>('.cvlink__preview-frame iframe')
+      if (!iframe?.dataset.src) return
 
-    const load = () => {
-      if (!iframe.src) iframe.src = iframe.dataset.src as string
-    }
-    cvlink.addEventListener('pointerenter', load, { once: true })
-    cvlink.addEventListener('focusin', load, { once: true })
-  })
+      const load = () => {
+        if (!iframe.src) iframe.src = iframe.dataset.src as string
+      }
+      cvlink.addEventListener('pointerenter', load, { once: true })
+      cvlink.addEventListener('focusin', load, { once: true })
+    })
+  }
+
+  document.addEventListener('astro:page-load', initCvPreviews)
 </script>

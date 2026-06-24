@@ -319,6 +319,7 @@ const mailto = email?.href ?? 'mailto:contact@ryzeon.dev'
 </style>
 
 <script>
+  function initContact() {
   document.querySelectorAll('[data-copy]').forEach((element) => {
     element.addEventListener('click', async () => {
       const text = element.getAttribute('data-copy')
@@ -378,4 +379,7 @@ const mailto = email?.href ?? 'mailto:contact@ryzeon.dev'
       }
     })
   }
+  }
+
+  document.addEventListener('astro:page-load', initContact)
 </script>
