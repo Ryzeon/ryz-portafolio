@@ -1,0 +1,132 @@
+---
+import SectionHeading from './SectionHeading.astro'
+import type { UIStrings } from '../i18n/types'
+import type { Education, ExperienceItem } from '../data/portfolio'
+
+interface Props {
+  ui: UIStrings
+  jobs: ExperienceItem[]
+  education: Education
+}
+
+const { ui, jobs, education } = Astro.props
+---
+
+<section id="experience" class="pf-container pf-section">
+  <SectionHeading number="03" title={ui.expTitle} />
+
+  <div class="exp__list">
+    {
+      jobs.map((job) => (
+        <article class="exp__card" style={`border-left-color:${job.color}`}>
+          <div class="exp__top">
+            <h3 class="exp__role">{job.role} — {job.company}</h3>
+            <span class="exp__meta">{job.period} · {job.location}</span>
+          </div>
+          <ul class="exp__bullets">
+            {job.bullets.map((bullet) => (
+              <li class="exp__bullet">
+                <span class="exp__arrow" style={`color:${job.color}`}>→</span>
+                {bullet}
+              </li>
+            ))}
+          </ul>
+          <div class="exp__tags">
+            {job.tags.map((tag) => <span class="exp__tag">{tag}</span>)}
+          </div>
+        </article>
+      ))
+    }
+
+    <article class="exp__card exp__card--edu">
+      <div class="exp__top">
+        <h3 class="exp__role">{ui.eduDegree} — {education.company}</h3>
+        <span class="exp__meta">{education.period} · {education.location}</span>
+      </div>
+      <p class="exp__edu-body">{ui.eduBody}</p>
+    </article>
+  </div>
+</section>
+
+<style>
+  .exp__list {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+  }
+
+  .exp__card {
+    border: 3px solid var(--pf-ink);
+    border-left: 10px solid var(--pf-ink);
+    background: var(--pf-paper);
+    padding: 26px;
+    box-shadow: 5px 5px 0 var(--pf-ink);
+  }
+
+  .exp__card--edu {
+    border-left-color: var(--pf-primary);
+  }
+
+  .exp__top {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 14px;
+    flex-wrap: wrap;
+    margin-bottom: 12px;
+  }
+
+  .exp__role {
+    font-family: var(--pf-font-display);
+    font-size: clamp(18px, 2.6vw, 26px);
+    text-transform: uppercase;
+    letter-spacing: -0.01em;
+  }
+
+  .exp__meta {
+    font-family: var(--pf-font-mono);
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+  }
+
+  .exp__bullets {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .exp__bullet {
+    font-size: 14.5px;
+    line-height: 1.6;
+    padding-left: 22px;
+    position: relative;
+  }
+
+  .exp__arrow {
+    position: absolute;
+    left: 0;
+    font-family: var(--pf-font-display);
+  }
+
+  .exp__tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-top: 14px;
+  }
+
+  .exp__tag {
+    font-family: var(--pf-font-mono);
+    font-size: 11px;
+    font-weight: 700;
+    padding: 3px 9px;
+    border: 2px solid var(--pf-ink);
+  }
+
+  .exp__edu-body {
+    font-size: 14.5px;
+    line-height: 1.6;
+    max-width: 720px;
+  }
+</style>
