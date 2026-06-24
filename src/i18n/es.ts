@@ -26,9 +26,10 @@ export const es: UIStrings = {
   cvShellBtn: 'Shell CV',
   ctaWork: 'Ver proyectos',
   ctaContact: 'Hablemos',
-  heroTagline: 'Construyo sistemas escalables de punta a punta — de la API al pipeline.',
+  heroTagline: 'Construyo y despliego sistemas escalables de punta a punta — de la API al pipeline.',
   aboutLabel: 'Sobre mí',
-  aboutLead: 'Software Engineer enfocado en backend, cloud y DevOps, con base fullstack sólida.',
+  aboutLead:
+    'Software Engineer con 2 años llevando backend, cloud y DevOps a producción — con base fullstack sólida.',
   aboutBody:
     'Diseño arquitecturas escalables y resilientes con IaC (Terraform/CDK), CI/CD y observabilidad completa (Grafana, Loki, Prometheus). He llevado productos de monolito a serverless híbrido, asegurado APIs en producción y reducido tiempos de operación. Estudio Ingeniería de Software en la UPC (Lima) mientras construyo sistemas reales para empresas y startups.',
   stackTitle: 'Stack',

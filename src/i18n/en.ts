@@ -26,9 +26,10 @@ export const en: UIStrings = {
   cvShellBtn: 'Shell CV',
   ctaWork: 'View work',
   ctaContact: 'Get in touch',
-  heroTagline: 'I ship scalable systems end to end — from the API to the pipeline.',
+  heroTagline: 'I build and ship scalable systems end to end — from the API to the pipeline.',
   aboutLabel: 'About',
-  aboutLead: 'Software Engineer focused on backend, cloud and DevOps, with a solid fullstack foundation.',
+  aboutLead:
+    'Software Engineer with 2 years shipping backend, cloud and DevOps to production — with a solid fullstack foundation.',
   aboutBody:
     'I design scalable, resilient architectures with IaC (Terraform/CDK), CI/CD and full observability (Grafana, Loki, Prometheus). I have migrated products from monolith to hybrid serverless, hardened production APIs and cut operational time. I study Software Engineering at UPC (Lima) while building real systems for companies and startups.',
   stackTitle: 'Stack',
