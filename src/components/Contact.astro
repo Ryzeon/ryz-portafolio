@@ -1,13 +1,14 @@
 ---
-import type { UIStrings } from '../i18n/types'
+import type { Lang, UIStrings } from '../i18n/types'
 import type { Social } from '../data/portfolio'
 
 interface Props {
   ui: UIStrings
   socials: Social[]
+  lang: Lang
 }
 
-const { ui, socials } = Astro.props
+const { ui, socials, lang } = Astro.props
 
 const email = socials.find((social) => social.key === 'Email')
 const mailto = email?.href ?? 'mailto:aavilaasto@gmail.com'
@@ -69,6 +70,7 @@ const mailto = email?.href ?? 'mailto:aavilaasto@gmail.com'
         autocomplete="off"
         aria-hidden="true"
       />
+      <input type="hidden" name="lang" value={lang} />
 
       <button type="submit" class="contact__submit pf-press-light">{ui.form.send} →</button>
       <p class="contact__status" role="status" aria-live="polite"></p>
