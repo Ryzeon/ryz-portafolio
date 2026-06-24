@@ -1,0 +1,143 @@
+---
+import type { UIStrings } from '../i18n/types'
+import type { Social } from '../data/portfolio'
+
+interface Props {
+  ui: UIStrings
+  socials: Social[]
+}
+
+const { ui, socials } = Astro.props
+
+const email = socials.find((social) => social.key === 'Email')
+const mailto = email?.href ?? 'mailto:aavilaasto@gmail.com'
+---
+
+<section id="contact" class="contact">
+  <div class="pf-container contact__inner">
+    <span class="contact__label">05 — {ui.contactLabel}</span>
+    <h2 class="contact__title">{ui.contactTitle}</h2>
+    <p class="contact__body">{ui.contactBody}</p>
+
+    <a href={mailto} class="contact__cta pf-press-light">{ui.contactCta} →</a>
+
+    <div class="contact__socials">
+      {
+        socials.map((social) => (
+          <a href={social.href} target="_blank" rel="noopener" class="contact__social pf-press">
+            <span class="contact__social-key">{social.key}</span>
+            <span class="contact__social-value">{social.value}</span>
+          </a>
+        ))
+      }
+    </div>
+
+    <div class="contact__footer">© 2026 Alex Avila Asto — Lima, Peru · Open to remote</div>
+  </div>
+</section>
+
+<style>
+  .contact {
+    border-top: 3px solid var(--pf-ink);
+    background: var(--pf-primary);
+  }
+
+  .contact__inner {
+    padding-block: 72px;
+  }
+
+  .contact__label {
+    display: inline-block;
+    font-family: var(--pf-font-mono);
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    background: var(--pf-ink);
+    color: var(--pf-bg);
+    padding: 6px 12px;
+    margin-bottom: 20px;
+  }
+
+  .contact__title {
+    font-family: var(--pf-font-display);
+    font-size: clamp(40px, 8vw, 100px);
+    line-height: 0.9;
+    text-transform: uppercase;
+    letter-spacing: -0.03em;
+    margin-bottom: 26px;
+  }
+
+  .contact__body {
+    font-size: 17px;
+    font-weight: 500;
+    line-height: 1.55;
+    max-width: 540px;
+    margin-bottom: 34px;
+  }
+
+  .contact__cta {
+    display: inline-block;
+    font-family: var(--pf-font-mono);
+    font-size: 14px;
+    font-weight: 700;
+    text-transform: uppercase;
+    padding: 16px 30px;
+    background: var(--pf-ink);
+    color: var(--pf-bg);
+    border: 2px solid var(--pf-ink);
+    box-shadow: 5px 5px 0 var(--pf-bg);
+    margin-bottom: 48px;
+    transition: transform 0.12s, box-shadow 0.12s;
+  }
+
+  .contact__cta:hover,
+  .contact__cta:focus-visible {
+    transform: translate(2px, 2px);
+    box-shadow: 1px 1px 0 var(--pf-bg);
+  }
+
+  .contact__socials {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 14px;
+  }
+
+  .contact__social {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    background: var(--pf-bg);
+    border: 2px solid var(--pf-ink);
+    padding: 16px;
+    box-shadow: 4px 4px 0 var(--pf-ink);
+  }
+
+  .contact__social-key {
+    font-family: var(--pf-font-mono);
+    font-size: 10px;
+    font-weight: 700;
+    text-transform: uppercase;
+    opacity: 0.6;
+  }
+
+  .contact__social-value {
+    font-weight: 700;
+    font-size: 14px;
+  }
+
+  .contact__footer {
+    font-family: var(--pf-font-mono);
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    margin-top: 40px;
+    border-top: 2px solid var(--pf-ink);
+    padding-top: 18px;
+  }
+
+  @media (min-width: 620px) {
+    .contact__socials {
+      grid-template-columns: repeat(4, 1fr);
+    }
+  }
+</style>
